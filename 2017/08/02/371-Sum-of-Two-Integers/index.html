@@ -87,18 +87,18 @@
 
 
 
-<meta name="description" content="###��Ŀ����Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -. ####����һ������public int getSum(int a, int b) {        if(0 == b)            return a;">
+<meta name="description" content="###题目描述Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -. ####方法一‘‘‘public int getSum(int a, int b) {        if(0 == b)            return a;        int cxo">
 <meta name="keywords" content="pointer,versus,xor">
 <meta property="og:type" content="article">
 <meta property="og:title" content="371.Sum of Two Integers">
 <meta property="og:url" content="http://lstop:201408lf@github.com/lstop/lstop.github.io.git/2017/08/02/371-Sum-of-Two-Integers/index.html">
 <meta property="og:site_name" content="lstop">
-<meta property="og:description" content="###��Ŀ����Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -. ####����һ������public int getSum(int a, int b) {        if(0 == b)            return a;">
+<meta property="og:description" content="###题目描述Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -. ####方法一‘‘‘public int getSum(int a, int b) {        if(0 == b)            return a;        int cxo">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-08-02T12:35:23.237Z">
+<meta property="og:updated_time" content="2017-08-02T12:36:58.812Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="371.Sum of Two Integers">
-<meta name="twitter:description" content="###��Ŀ����Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -. ####����һ������public int getSum(int a, int b) {        if(0 == b)            return a;">
+<meta name="twitter:description" content="###题目描述Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -. ####方法一‘‘‘public int getSum(int a, int b) {        if(0 == b)            return a;        int cxo">
 
 
 
@@ -413,9 +413,9 @@
       
 
       
-        <p>###��Ŀ����<br>Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.</p>
-<p>####����һ<br>������<br>public int getSum(int a, int b) {<br>        if(0 == b)<br>            return a;<br>        int cxor = a^b;<br>        int cand = a&b;<br>        return getSum(cxor, cand&lt;&lt;1);<br>    }<br>������<br>1.�ڶ�������,�����ǽ�λ��a,b����,��a^b.<br>2.ֻ���ǽ�λ,��a&amp;b.<br>3.��a&amp;b��ǰ��һλ.<br>4.��ʱa+b�Ϳ���ת��Ϊ�����������ĺ�,ֱ��bΪ0.</p>
-<p>####������<br>������<br>int getSum(int a, int b) {<br>        char <em>c = (char </em>)a;<br>        return (long) &amp;c[b];<br>    }<br>������<br>1.���Ƚ�aת��Ϊ��ַ����,ָ��cָ���õ�ַ.<br>2.c[b]�����൱��ƽʱ�����е�ȡ�±�Ϊb��Ԫ�ص�ֵ,����˵c[b]=c+sizeof(char*)b.<br>3.��Ϊc��ָ�룬����c[b]ָ�����ǵ�ַ�ڵ�ֵ,��&amp;�����õ�ַ��Ӧ��ֵ�ĵ�ַȡ����.</p>
+        <p>###题目描述<br>Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.</p>
+<p>####方法一<br>‘‘‘<br>public int getSum(int a, int b) {<br>        if(0 == b)<br>            return a;<br>        int cxor = a^b;<br>        int cand = a&b;<br>        return getSum(cxor, cand&lt;&lt;1);<br>    }<br>‘‘‘<br>1.在二进制下,不考虑进位将a,b相加,即a^b.<br>2.只考虑进位,即a&amp;b.<br>3.将a&amp;b向前进一位.<br>4.此时a+b就可以转化为另外两个数的和,直至b为0.</p>
+<p>####方法二<br>‘‘‘<br>int getSum(int a, int b) {<br>        char <em>c = (char </em>)a;<br>        return (long) &amp;c[b];<br>    }<br>‘‘‘<br>1.首先将a转换为地址类型,指针c指向该地址.<br>2.c[b]就是相当于平时数组中的取下标为b的元素的值,就是说c[b]=c+sizeof(char*)b.<br>3.因为c是指针，所以c[b]指向的是地址内的值,用&amp;来将该地址对应的值的地址取出来.</p>
 
       
     </div>
