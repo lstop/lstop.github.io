@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[371.Sum of Two Integers]]></title>
+    <url>%2F2017%2F08%2F02%2F371-Sum-of-Two-Integers%2F</url>
+    <content type="text"><![CDATA[###��Ŀ����Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -. ####����һ������public int getSum(int a, int b) { if(0 == b) return a; int cxor = a^b; int cand = a&b; return getSum(cxor, cand&lt;&lt;1); }������1.�ڶ�������,�����ǽ�λ��a,b����,��a^b.2.ֻ���ǽ�λ,��a&amp;b.3.��a&amp;b��ǰ��һλ.4.��ʱa+b�Ϳ���ת��Ϊ�����������ĺ�,ֱ��bΪ0. ####������������int getSum(int a, int b) { char c = (char )a; return (long) &amp;c[b]; }������1.���Ƚ�aת��Ϊ��ַ����,ָ��cָ���õ�ַ.2.c[b]�����൱��ƽʱ�����е�ȡ�±�Ϊb��Ԫ�ص�ֵ,����˵c[b]=c+sizeof(char*)b.3.��Ϊc��ָ�룬����c[b]ָ�����ǵ�ַ�ڵ�ֵ,��&amp;�����õ�ַ��Ӧ��ֵ�ĵ�ַȡ����.]]></content>
+      <categories>
+        <category>Leetcode</category>
+      </categories>
+      <tags>
+        <tag>pointer</tag>
+        <tag>versus</tag>
+        <tag>xor</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Welcome]]></title>
     <url>%2F2017%2F08%2F02%2FWelcome%2F</url>
     <content type="text"><![CDATA[Welcome]]></content>
