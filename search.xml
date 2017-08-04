@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[Fri Aug 04 2017 00:00:00 GMT+0800 (中国标准时间)]]></title>
+    <title><![CDATA[友情链接]]></title>
     <url>%2F2017%2F08%2F04%2F%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5%2F</url>
-    <content type="text"><![CDATA[date: 2017-08-04 16:36status: drafttitle: ‘友情链接’categories: 其他tags: csdn: http://blog.csdn.net/baidu_21483933 segmentfault: https://segmentfault.com/blog/maocg_web 简书: http://www.jianshu.com/users/eb37ef89c746/latest_articles 最右: https://zuiyou.ixiaochuan.cn/home]]></content>
+    <content type="text"><![CDATA[下面是一些网站的传送门csdn: http://blog.csdn.net/baidu_21483933segmentfault: https://segmentfault.com/blog/maocg_web简书: http://www.jianshu.com/users/eb37ef89c746/latest_articles最右: https://zuiyou.ixiaochuan.cn/home]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
   </entry>
   <entry>
     <title><![CDATA[371.Sum of Two Integers]]></title>
