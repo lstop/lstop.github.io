@@ -3,28 +3,18 @@
   <entry>
     <title><![CDATA[371.Sum of Two Integers]]></title>
     <url>%2F2017%2F08%2F03%2F371.Sum%20of%20Two%20Integers%2F</url>
-    <content type="text"><![CDATA[title: 371.Sum of Two Integersdate: 2017-08-02 20:12:14tags: [pointer,versus,xor] categories: Leetcode#题目描述Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.不使用加减号计算两个整数的和，找到了两种方法。 ##方法一1234567public int getSum(int a, int b) &#123; if(0 == b) return a; int cxor = a^b; int cand = a&amp;b; return getSum(cxor, cand&lt;&lt;1); &#125; 1.在二进制下,不考虑进位将a,b相加,即a^b.2.只考虑进位,即a&amp;b.3.将a&amp;b向前进一位.4.此时a+b就可以转化为另外两个数的和,直至b为0. ##方法二1234int getSum(int a, int b) &#123; char *c = (char *)a; return (long) &amp;c[b]; &#125; 1.首先将a转换为地址类型,指针c指向该地址.2.c[b]就是相当于平时数组中的取下标为b的元素的值,就是说c[b]=c+sizeof(char*)b.3.因为c是指针，所以c[b]指向的是地址内的值,用&amp;来将该地址对应的值的地址取出来.]]></content>
+    <content type="text"><![CDATA[#题目描述Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.不使用加减号计算两个整数的和，找到了两种方法。 ##方法一1234567public int getSum(int a, int b) &#123; if(0 == b) return a; int cxor = a^b; int cand = a&amp;b; return getSum(cxor, cand&lt;&lt;1); &#125; 1.在二进制下,不考虑进位将a,b相加,即a^b.2.只考虑进位,即a&amp;b.3.将a&amp;b向前进一位.4.此时a+b就可以转化为另外两个数的和,直至b为0. ##方法二1234int getSum(int a, int b) &#123; char *c = (char *)a; return (long) &amp;c[b]; &#125; 1.首先将a转换为地址类型,指针c指向该地址.2.c[b]就是相当于平时数组中的取下标为b的元素的值,就是说c[b]=c+sizeof(char*)b.3.因为c是指针，所以c[b]指向的是地址内的值,用&amp;来将该地址对应的值的地址取出来.]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>java</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[371.Sum of Two Integers]]></title>
     <url>%2F2017%2F08%2F03%2FFarBox%2Flstop.github.io%2FLeetcode%2F371.Sum%20of%20Two%20Integers%2F</url>
     <content type="text"><![CDATA[title: 371.Sum of Two Integersdate: 2017-08-02 20:12:14tags: [pointer,versus,xor]categories: Leetcode #题目描述Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.不使用加减号计算两个整数的和，找到了两种方法。 ##方法一1234567public int getSum(int a, int b) &#123; if(0 == b) return a; int cxor = a^b; int cand = a&amp;b; return getSum(cxor, cand&lt;&lt;1); &#125; 1.在二进制下,不考虑进位将a,b相加,即a^b.2.只考虑进位,即a&amp;b.3.将a&amp;b向前进一位.4.此时a+b就可以转化为另外两个数的和,直至b为0. ##方法二1234int getSum(int a, int b) &#123; char *c = (char *)a; return (long) &amp;c[b]; &#125; 1.首先将a转换为地址类型,指针c指向该地址.2.c[b]就是相当于平时数组中的取下标为b的元素的值,就是说c[b]=c+sizeof(char*)b.3.因为c是指针，所以c[b]指向的是地址内的值,用&amp;来将该地址对应的值的地址取出来.]]></content>
-  </entry>
-  <entry>
-    <title><![CDATA[Welcome]]></title>
-    <url>%2F2017%2F08%2F02%2FWelcome%2F</url>
-    <content type="text"><![CDATA[Welcome]]></content>
-      <categories>
-        <category>测试</category>
-      </categories>
-      <tags>
-        <tag>new</tag>
-        <tag>wolcome</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2F2017%2F08%2F01%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
   </entry>
 </search>
