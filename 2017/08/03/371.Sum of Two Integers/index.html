@@ -9,18 +9,18 @@
   
   <title>371.Sum of Two Integers | lstop</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="#题目描述Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.不使用加减号计算两个整数的和，找到了两种方法。 ##方法一1234567public int getSum(int a, int b) &amp;#123;        if(0 == b)">
+  <meta name="description" content="#题目描述Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.不使用加减号计算两个整数的和，找到了两种方法。">
 <meta name="keywords" content="leetcode,java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="371.Sum of Two Integers">
 <meta property="og:url" content="http://lstop:201408lf@github.com/lstop/lstop.github.io.git/2017/08/03/371.Sum of Two Integers/index.html">
 <meta property="og:site_name" content="lstop">
-<meta property="og:description" content="#题目描述Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.不使用加减号计算两个整数的和，找到了两种方法。 ##方法一1234567public int getSum(int a, int b) &amp;#123;        if(0 == b)">
+<meta property="og:description" content="#题目描述Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.不使用加减号计算两个整数的和，找到了两种方法。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-08-04T01:17:03.161Z">
+<meta property="og:updated_time" content="2017-08-04T03:44:59.413Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="371.Sum of Two Integers">
-<meta name="twitter:description" content="#题目描述Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.不使用加减号计算两个整数的和，找到了两种方法。 ##方法一1234567public int getSum(int a, int b) &amp;#123;        if(0 == b)">
+<meta name="twitter:description" content="#题目描述Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.不使用加减号计算两个整数的和，找到了两种方法。">
   
     <link rel="alternative" href="/atom.xml" title="lstop" type="application/atom+xml">
   
@@ -315,7 +315,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>#题目描述<br>Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.<br>不使用加减号计算两个整数的和，找到了两种方法。</p>
+        <p>#题目描述<br>Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.<br>不使用加减号计算两个整数的和，找到了两种方法。<br><a id="more"></a> </p>
 <p>##方法一<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public int getSum(int a, int b) &#123;</div><div class="line">        if(0 == b)  </div><div class="line">            return a;  </div><div class="line">        int cxor = a^b;  </div><div class="line">        int cand = a&amp;b;  </div><div class="line">        return getSum(cxor, cand&lt;&lt;1);  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>1.在二进制下,不考虑进位将a,b相加,即a^b.<br>2.只考虑进位,即a&amp;b.<br>3.将a&amp;b向前进一位.<br>4.此时a+b就可以转化为另外两个数的和,直至b为0.</p>
 <p>##方法二<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">int getSum(int a, int b) &#123;</div><div class="line">        char *c = (char *)a;  </div><div class="line">        return (long) &amp;c[b];  </div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
@@ -331,7 +331,7 @@
         <p><span>本文标题:</span><a  href="/2017/08/03/371.Sum of Two Integers/">371.Sum of Two Integers</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 lstop 的个人博客">lstop</a></p>
         <p><span>发布时间:</span>2017年08月03日 - 15时36分</p>
-        <p><span>最后更新:</span>2017年08月04日 - 09时17分</p>
+        <p><span>最后更新:</span>2017年08月04日 - 11时44分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/08/03/371.Sum of Two Integers/" title="371.Sum of Two Integers">http://lstop:201408lf@github.com/lstop/lstop.github.io.git/2017/08/03/371.Sum of Two Integers/</a>
             <span class="copy-path" data-clipboard-text="原文: http://lstop:201408lf@github.com/lstop/lstop.github.io.git/2017/08/03/371.Sum of Two Integers/　　作者: lstop" title=""></span>
