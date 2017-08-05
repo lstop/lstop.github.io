@@ -297,9 +297,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>#题目描述<br>    Given a binary tree, you need to compute the length of the diameter of the tree. The diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root.<br>    给定一个二叉树，计算任意两个节点之间最长路径的长度<br>        1<br>       / \<br>      2   3<br>     / \<br>    4   5<br>    Return 3, which is the length of the path [4,2,1,3] or [5,2,1,3].<br>这是一个简单的动态规划的问题，通过深度遍历求最低节点所构成子树的最长路径，然后依次向上，保留路径的最大值，最终结果就是给定二叉树的最长路径。<br>下面给出Java实现代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Definition for a binary tree node.</div><div class="line"> * public class TreeNode &#123;</div><div class="line"> *     int val;</div><div class="line"> *     TreeNode left;</div><div class="line"> *     TreeNode right;</div><div class="line"> *     TreeNode(int x) &#123; val = x; &#125;</div><div class="line"> * &#125;</div><div class="line"> */</div><div class="line">public class Solution &#123;</div><div class="line">    int maxlen = 0;</div><div class="line">    public int maxdep(TreeNode root) &#123;</div><div class="line">        if(root == null)</div><div class="line">            return 0;</div><div class="line">        int left = maxdep(root.left);</div><div class="line">        int right = maxdep(root.right);</div><div class="line">        maxlen = Math.max(maxlen,left+right);</div><div class="line">        return Math.max(left,right)+1;</div><div class="line">    &#125;</div><div class="line">    public int diameterOfBinaryTree(TreeNode root) &#123;</div><div class="line">        maxdep(root);</div><div class="line">        return maxlen;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>Runtime: 9 ms</p>
-
+              <p>#题目描述<br>    Given a binary tree, you need to compute the length of the diameter of the tree. The diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root.<br>    给定一个二叉树，计算任意两个节点之间最长路径的长度<br>
+          
       
     </div>
     
@@ -316,6 +315,10 @@
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a   href="/2017/08/05/543.Diameter of Binary Tree/#more">查看更多 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
