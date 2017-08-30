@@ -67,7 +67,7 @@
     <link href="http://lstop:201408lf@github.com/lstop/lstop.github.io.git/2017/08/03/371.Sum%20of%20Two%20Integers/"/>
     <id>http://lstop:201408lf@github.com/lstop/lstop.github.io.git/2017/08/03/371.Sum of Two Integers/</id>
     <published>2017-08-03T07:36:00.000Z</published>
-    <updated>2017-08-29T00:57:42.973Z</updated>
+    <updated>2017-08-30T12:54:20.364Z</updated>
     
     <content type="html"><![CDATA[<p>#题目描述<br>Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.<br>不使用加减号计算两个整数的和，找到了两种方法。<br><a id="more"></a> </p>
 <p>##方法一<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">int</span> <span class="title">getSum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(<span class="number">0</span> == b)  </div><div class="line">            <span class="keyword">return</span> a;  </div><div class="line">        <span class="keyword">int</span> cxor = a^b;  </div><div class="line">        <span class="keyword">int</span> cand = a&amp;b;  </div><div class="line">        <span class="function"><span class="keyword">return</span> <span class="title">getSum</span><span class="params">(cxor, cand&lt;&lt;<span class="number">1</span>)</span></span>;  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
@@ -85,9 +85,7 @@
       <category term="leetcode" scheme="http://lstop:201408lf@github.com/lstop/lstop.github.io.git/categories/leetcode/"/>
     
     
-      <category term="leetcode" scheme="http://lstop:201408lf@github.com/lstop/lstop.github.io.git/tags/leetcode/"/>
-    
-      <category term="java" scheme="http://lstop:201408lf@github.com/lstop/lstop.github.io.git/tags/java/"/>
+      <category term="Operator" scheme="http://lstop:201408lf@github.com/lstop/lstop.github.io.git/tags/Operator/"/>
     
   </entry>
   
