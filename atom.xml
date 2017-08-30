@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>lstop</title>
-  <subtitle>lstop�Ĳ���</subtitle>
+  <subtitle>lstop的博客</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lstop:201408lf@github.com/lstop/lstop.github.io.git/"/>
