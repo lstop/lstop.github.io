@@ -12,6 +12,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Traverse the binary tree]]></title>
+    <url>%2F2017%2F08%2F05%2FTraverse%20the%20binary%20tree%2F</url>
+    <content type="text"><![CDATA[ǰ�����������ٹ��ڶ���������,���������������������Ǹ��ֱ���,������ʱ��������һ��. �����Ƕ�����һ�������������㣬��ν���������������ǰ�һ���Ĺ�����˳���߱������������н��㣬ʹÿһ�����㶼������һ�Σ�����ֻ������һ�Ρ����ڶ������Ƿ����Խṹ�����ˣ����ı���ʵ�����ǽ��������ĸ�������ת����Ϊһ��������������ʾ�� �������ı���һ��������: ��������:���ȷ��ʸ������������������ң��������������������ң��������� ��������:�����������������ң��������ٷ��ʸ����������������ң��������� ��������:���Ⱥ������������ң��������ٺ��������ң������������������ʸ� ��������:���ղ��η��ʣ�ͨ���ö������������ʸ���������Ů���ٷ�����Ů����Ů��Խ�����Ĳ���Խ�ͣ���������Ů�ļ�����ͬ�� ʵ�ִ���123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051/** * ���������������������������� ʱ�临�Ӷ�ΪO(n) * �������� ʱ�临�Ӷ�ΪO(logn),���������ʱ�临�Ӷ�ΪO(n^2) * @author Administrator * */class TreeNode&#123; int val; TreeNode left; TreeNode right; TreeNode(int x) &#123;this.val = x;&#125;&#125;public class Test &#123; //�������� public static void firstSearch(TreeNode root) &#123; if(root == null) return; System.out.print(root.val+" "); if(root.left!=null) firstSearch(root.left); if(root.right!=null) firstSearch(root.right); &#125; //�������� public static void middleSerach(TreeNode root) &#123; if(root == null) return; if(root.left!=null) middleSerach(root.left); System.out.print(root.val+" "); if(root.right!=null) middleSerach(root.right); &#125; //�������� public static void lastSearch(TreeNode root) &#123; if(root == null) return; if(root.left!=null) lastSearch(root.left); if(root.right!=null) lastSearch(root.right); System.out.print(root.val+" "); &#125; //�������� public static void levalSearch(TreeNode root) &#123; Queue&lt;TreeNode&gt; queue = new LinkedList&lt;&gt;(); queue.add(root); int leval = 0; while(!queue.isEmpty()) &#123; int n = queue.size(); for(int i=0;i&lt;n;i++) &#123; TreeNode treeNode = queue.poll(); System.out.print(treeNode.val+" "); if(treeNode.left!=null) queue.add(treeNode.left); if(treeNode.right!=null) queue.add(treeNode.right); &#125; System.out.println(" ��"+(leval++)+"��"); &#125; &#125;&#125; ����һ��������12345678����Ϊ��������:3 2 1 6 4 5 7 ��������:1 2 6 3 5 4 7 ��������:1 6 2 5 7 4 3 ��������:3 ��0��2 4 ��1��1 6 5 7 ��2��]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>binary tree</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[371.Sum of Two Integers]]></title>
     <url>%2F2017%2F08%2F03%2F371.Sum%20of%20Two%20Integers%2F</url>
     <content type="text"><![CDATA[题目描述Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.不使用加减号计算两个整数的和，找到了两种方法。方法一1234567public int getSum(int a, int b) &#123; if(0 == b) return a; int cxor = a^b; int cand = a&amp;b; return getSum(cxor, cand&lt;&lt;1); &#125; 1.在二进制下,不考虑进位将a,b相加,即a^b.2.只考虑进位,即a&amp;b.3.将a&amp;b向前进一位.4.此时a+b就可以转化为另外两个数的和,直至b为0.方法二1234int getSum(int a, int b) &#123; char *c = (char *)a; return (long) &amp;c[b]; &#125; 1.首先将a转换为地址类型,指针c指向该地址.2.c[b]就是相当于平时数组中的取下标为b的元素的值,就是说c[b]=c+sizeof(char*)b.3.因为c是指针，所以c[b]指向的是地址内的值,用&amp;来将该地址对应的值的地址取出来.]]></content>
