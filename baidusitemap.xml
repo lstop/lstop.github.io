@@ -3,36 +3,15 @@
 
 
     
-    
-  <url>
-    <loc>http://lstop:201408lf@github.com/lstop/lstop.github.io.git/2017/08/04/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/</loc>
-    <lastmod>2017-08-30T13:16:37.071Z</lastmod>
-    <data>
-        <display>
-        <title>友情链接</title>
-        <pubTime>2017-08-04T08:36:00.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="其他" url="http://lstop:201408lf@github.com/lstop/lstop.github.io.git/categories/%E5%85%B6%E4%BB%96/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
   <url>
     <loc>http://lstop:201408lf@github.com/lstop/lstop.github.io.git/2017/08/05/543.Diameter%20of%20Binary%20Tree/</loc>
-    <lastmod>2017-08-30T13:14:49.340Z</lastmod>
+    <lastmod>2017-08-30T13:25:14.460Z</lastmod>
     <data>
         <display>
         <title>543.Diameter of Binary Tree</title>
         <pubTime>2017-08-05T04:00:00.000Z</pubTime>
         
-        <tag>leetcode</tag>
-         
-        <tag>java</tag>
+        <tag>binary tree</tag>
          
          
            
@@ -46,7 +25,7 @@
     
   <url>
     <loc>http://lstop:201408lf@github.com/lstop/lstop.github.io.git/2017/08/03/371.Sum%20of%20Two%20Integers/</loc>
-    <lastmod>2017-08-30T13:14:00.293Z</lastmod>
+    <lastmod>2017-08-30T13:25:14.451Z</lastmod>
     <data>
         <display>
         <title>371.Sum of Two Integers</title>
@@ -63,6 +42,7 @@
     </data>
     </url>
 
+    
     
     
     
