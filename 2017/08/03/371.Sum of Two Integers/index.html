@@ -3,6 +3,8 @@
 <p>1.在二进制下,不考虑进位将a,b相加,即a^b.<br>2.只考虑进位,即a&amp;b.<br>3.将a&amp;b向前进一位.<br>4.此时a+b就可以转化为另外两个数的和,直至b为0.</p>
 <h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">getSum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</div><div class="line">        <span class="keyword">char</span> *c = (<span class="keyword">char</span> *)a;  </div><div class="line">        <span class="keyword">return</span> (<span class="keyword">long</span>) &amp;c[b];  </div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 <p>1.首先将a转换为地址类型,指针c指向该地址.<br>2.c[b]就是相当于平时数组中的取下标为b的元素的值,就是说c[b]=c+sizeof(char*)b.<br>3.因为c是指针，所以c[b]指向的是地址内的值,用&amp;来将该地址对应的值的地址取出来.</p>
+<p><a href="https://lstop.github.io/2017/08/03/371.Sum%20of%20Two%20Integers/" title="https://lstop.github.io/2017/08/03/371.Sum%20of%20Two%20Integers/" target="_blank" rel="external">原文地址</a></p>
+<p>转载请注明出处</p>
 </div><div class="tags"><a href="/tags/Operator/">Operator</a></div><div class="post-nav"><a href="/2017/08/05/543.Diameter of Binary Tree/" class="pre">543.Diameter of Binary Tree</a></div><div id="container"></div><link rel="stylesheet" href="/css/default.css?v=0.0.1"><script src="/js/gitment.browser.js?v=0.0.1"></script><script>var gitment = new Gitment({
   owner: 'lstop',
   repo: 'lstop.gethub.io',
