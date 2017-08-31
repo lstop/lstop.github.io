@@ -4,28 +4,8 @@
 
     
   <url>
-    <loc>http://lstop:201408lf@github.com/lstop/lstop.github.io.git/2017/08/03/371.Sum%20of%20Two%20Integers/</loc>
-    <lastmod>2017-08-31T03:44:29.452Z</lastmod>
-    <data>
-        <display>
-        <title>371.Sum of Two Integers</title>
-        <pubTime>2017-08-03T07:36:00.000Z</pubTime>
-        
-        <tag>Operator</tag>
-         
-         
-           
-             
-              <breadCrumb title="leetcode" url="http://lstop:201408lf@github.com/lstop/lstop.github.io.git/categories/leetcode/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://lstop:201408lf@github.com/lstop/lstop.github.io.git/2017/08/05/543.Diameter%20of%20Binary%20Tree/</loc>
-    <lastmod>2017-08-31T03:44:01.968Z</lastmod>
+    <lastmod>2017-08-31T03:55:41.566Z</lastmod>
     <data>
         <display>
         <title>543.Diameter of Binary Tree</title>
@@ -45,7 +25,7 @@
     
   <url>
     <loc>http://lstop:201408lf@github.com/lstop/lstop.github.io.git/2017/08/30/Traverse%20the%20binary%20tree/</loc>
-    <lastmod>2017-08-31T03:41:37.978Z</lastmod>
+    <lastmod>2017-08-31T03:53:48.270Z</lastmod>
     <data>
         <display>
         <title>Traverse the binary tree</title>
@@ -57,6 +37,26 @@
            
              
               <breadCrumb title="java" url="http://lstop:201408lf@github.com/lstop/lstop.github.io.git/categories/java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://lstop:201408lf@github.com/lstop/lstop.github.io.git/2017/08/03/371.Sum%20of%20Two%20Integers/</loc>
+    <lastmod>2017-08-31T03:44:29.452Z</lastmod>
+    <data>
+        <display>
+        <title>371.Sum of Two Integers</title>
+        <pubTime>2017-08-03T07:36:00.000Z</pubTime>
+        
+        <tag>Operator</tag>
+         
+         
+           
+             
+              <breadCrumb title="leetcode" url="http://lstop:201408lf@github.com/lstop/lstop.github.io.git/categories/leetcode/"/>
           
         </display>
     </data>
