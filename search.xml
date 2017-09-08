@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[Traverse the binary tree]]></title>
+    <title><![CDATA[Tomcat配置]]></title>
     <url>%2F2017%2F09%2F08%2FTomcat%E9%85%8D%E7%BD%AE%2F</url>
     <content type="text"><![CDATA[Tomcat是Apache 软件基金会（Apache Software Foundation）的Jakarta 项目中的一个核心项目，由Apache、Sun 和其他一些公司及个人共同开发而成。由于有了Sun 的参与和支持，最新的Servlet 和JSP 规范总是能在Tomcat 中得到体现，Tomcat 5支持最新的Servlet 2.4 和JSP 2.0 规范。因为Tomcat 技术先进、性能稳定，而且免费，因而深受Java 爱好者的喜爱并得到了部分软件开发商的认可，成为目前比较流行的Web 应用服务器。 配置java环境安装jdk配置环境变量 下载Tomcat在tomcat官网就可以下载相应版本的tomcatwindow版本下载地址:tomcat7.0: 32位 64位tomcat8.0: 32位 64位tomcat8.5: 32位 64位tomcat9/0: 32位 64位 在eclipse上配置Tomcat1.选择菜单栏中的window——preferences2.选择左侧的 server——runtime environment——在弹出的窗口中选择add3.选择你的Tomcat的版本4.选择tomcat的路径,完成配置 原文地址 转载请注明出处]]></content>
       <categories>
-        <category>java</category>
+        <category>配置</category>
       </categories>
       <tags>
-        <tag>binary tree</tag>
+        <tag>tomcat</tag>
       </tags>
   </entry>
   <entry>
