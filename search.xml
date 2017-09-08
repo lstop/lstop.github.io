@@ -2,6 +2,17 @@
 <search>
   <entry>
     <title><![CDATA[Traverse the binary tree]]></title>
+    <url>%2F2017%2F09%2F08%2FTomcat%E9%85%8D%E7%BD%AE%2F</url>
+    <content type="text"></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>binary tree</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Traverse the binary tree]]></title>
     <url>%2F2017%2F08%2F30%2FTraverse%20the%20binary%20tree%2F</url>
     <content type="text"><![CDATA[前几天做到不少关于二叉树的题,二叉树最基本的问题就是各种遍历,于是找时间整理了一下. 遍历是对树的一种最基本的运算，所谓遍历二叉树，就是按一定的规则和顺序走遍二叉树的所有结点，使每一个结点都被访问一次，而且只被访问一次。由于二叉树是非线性结构，因此，树的遍历实质上是将二叉树的各个结点转换成为一个线性序列来表示。 二叉树的遍历一般有四种: 先序遍历 首先访问根，再先序遍历左（右）子树，最后先序遍历右（左）子树 中序遍历 首先中序遍历左（右）子树，再访问根，最后中序遍历右（左）子树 后续遍历 首先后序遍历左（右）子树，再后序遍历右（左）子树，最后访问根 层序遍历 按照层次访问，通常用队列来做。访问根，访问子女，再访问子女的子女（越往后的层次越低）（两个子女的级别相同） 实现代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051/** * 先序遍历，中序遍历，后续遍历 时间复杂度为O(n) * 层序遍历 时间复杂度为O(logn),最坏的情况下时间复杂度为O(n^2) * @author Administrator * */class TreeNode&#123; int val; TreeNode left; TreeNode right; TreeNode(int x) &#123;this.val = x;&#125;&#125;public class Test &#123; //先序遍历 public static void firstSearch(TreeNode root) &#123; if(root == null) return; System.out.print(root.val+" "); if(root.left!=null) firstSearch(root.left); if(root.right!=null) firstSearch(root.right); &#125; //中序遍历 public static void middleSerach(TreeNode root) &#123; if(root == null) return; if(root.left!=null) middleSerach(root.left); System.out.print(root.val+" "); if(root.right!=null) middleSerach(root.right); &#125; //后续遍历 public static void lastSearch(TreeNode root) &#123; if(root == null) return; if(root.left!=null) lastSearch(root.left); if(root.right!=null) lastSearch(root.right); System.out.print(root.val+" "); &#125; //层序遍历 public static void levalSearch(TreeNode root) &#123; Queue&lt;TreeNode&gt; queue = new LinkedList&lt;&gt;(); queue.add(root); int leval = 0; while(!queue.isEmpty()) &#123; int n = queue.size(); for(int i=0;i&lt;n;i++) &#123; TreeNode treeNode = queue.poll(); System.out.print(treeNode.val+" "); if(treeNode.left!=null) queue.add(treeNode.left); if(treeNode.right!=null) queue.add(treeNode.right); &#125; System.out.println(" 第"+(leval++)+"层"); &#125; &#125;&#125; 对于一个二叉树12345678结果为先序遍历:1 2 4 5 3 6 7 中序遍历:4 2 5 1 6 3 7 后续遍历:4 5 2 6 7 3 1 层序遍历:1 第0层2 3 第1层4 5 6 7 第2层 原文地址 转载请注明出处]]></content>
       <categories>
