@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[搭建个人博客]]></title>
+    <url>%2F2017%2F09%2F21%2F%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%2F</url>
+    <content type="text"><![CDATA[准备工具1.GitGit是一个开源的分布式版本控制系统，可以有效、高速的处理从很小到非常大的项目版本管理。官网下载地址https://git-scm.com/downloads2.Node.jsNode.js是一种javascript的运行环境，能够使得javascript脱离浏览器运行。官网下载地址https://nodejs.org/en/3.Githubgithub是一个基于git的web 协作社区，它有多种机制让大家协同的和你一起的对项目进行贡献。github全平台、全设备支持，你可以在任何终端上，随时随地的共享你的代码、评论或着其他有意义的信息。世界上最大的开源软件社区。Github官网https://github.com/ 安装Git下载好Git之后一路next安装即可,安装完成后打开cmd窗口输入下面命令1234567git --version``` ![1](https://raw.githubusercontent.com/lstop/lstop.github.io/master/image/Blog1.png) 如图所示若出现版本号则安装成功安装Node.js---Node安装更加简单，还是一路”Next”,最后等待安装完成即可.然后输入 node -vnpm -v12345678910111213141516171819202122232425![2](https://raw.githubusercontent.com/lstop/lstop.github.io/master/image/Blog2.png) 安装成功则结果如图所示 Github仓库仓库准备---首先进入Github官网注册Github账号 ![3](https://raw.githubusercontent.com/lstop/lstop.github.io/master/image/Blog3.png) ![4](https://raw.githubusercontent.com/lstop/lstop.github.io/master/image/Blog4.png) 注册成功后,点击New repository新建一个仓库,在Repository name一栏输入yourname.github.io这就是你的博客的域名.注意yourname必须与你注册的用户名一致,比如我的用户名为lstop,对应的仓库名为lstop.github.io ![5](https://raw.githubusercontent.com/lstop/lstop.github.io/master/image/Blog5.png) 然后进入仓库,会看到右上角有个Settings,点击打开这个库的setting页面，向下拖动，直到看见GitHub Pages,点击Automatic page generator，Github将会自动替你创建出一个gh-pages的页面.配置完成后,yourname.github.io这个网址就可以正常访问了. ![61](https://raw.githubusercontent.com/lstop/lstop.github.io/master/image/Blog61.jpg) ![62](https://raw.githubusercontent.com/lstop/lstop.github.io/master/image/Blog62.jpg)安装Hexo---hexo是基于node.js的静态博客，官网也是搭建在GitHub上的.首先在电脑上某个位置新建一个Blog的文件夹,然后鼠标右键会有一个Git Bash Here,点击打开,如下图所示 ![71](https://raw.githubusercontent.com/lstop/lstop.github.io/master/image/Blog71.png)![72](https://raw.githubusercontent.com/lstop/lstop.github.io/master/image/Blog72.png) 然后在命令行输入 npm install hexo-cli -gnpm install hexo –save12等待Hexo安装完成输入 hexo -v12345查看是否安装成功![8](https://raw.githubusercontent.com/lstop/lstop.github.io/master/image/Blog8.png)初始化---执行命令 hexo initnpm install12生成静态页面--- hexo g12本地启动--- hexo s1234567在看到下图提示之后,打开浏览器，输入localhost:4000,就可以在本地看到你的个人博客了![9](https://raw.githubusercontent.com/lstop/lstop.github.io/master/image/Blog9.png)大概就是这个样子![10](https://raw.githubusercontent.com/lstop/lstop.github.io/master/image/Blog10.png)部署到Gitub---首先要设置Git的username和email git config –global user.name “yourname”git config –global user.email “youremail”123然后这里需要配置SSH Keys,如果不配置那么以后每次提交都要手动输入账号密码配置完成后打开Blog目录下的_config.yml文件,打开找到Deployment,将其替换为下面一段话 DeploymentDocs: https://hexo.io/docs/deployment.htmldeploy: type: git repository: git@github.com:yourname/yourname.github.io.git,master branch: master1然后再执行 npm install hexo-deployer-git –savehexo d1234就基本上完成部署了,然后在浏览器输入https://yourname.github.io/就可以访问了写博客---在Blog\source\_posts目录下新建.md文件,写好后执行命令 hexo d -g```就可以发布到博客上 配置主题现在Github上有好多主题可以直接使用,上面有很详细的配置教程链接https://hexo.io/themes/]]></content>
+      <categories>
+        <category>配置</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Tomcat配置]]></title>
     <url>%2F2017%2F09%2F08%2FTomcat%E9%85%8D%E7%BD%AE%2F</url>
     <content type="text"><![CDATA[Tomcat是Apache 软件基金会（Apache Software Foundation）的Jakarta 项目中的一个核心项目，由Apache、Sun 和其他一些公司及个人共同开发而成。由于有了Sun 的参与和支持，最新的Servlet 和JSP 规范总是能在Tomcat 中得到体现，Tomcat 5支持最新的Servlet 2.4 和JSP 2.0 规范。因为Tomcat 技术先进、性能稳定，而且免费，因而深受Java 爱好者的喜爱并得到了部分软件开发商的认可，成为目前比较流行的Web 应用服务器。 配置java环境安装jdk配置环境变量 下载Tomcat在tomcat官网就可以下载相应版本的tomcatwindow版本下载地址:tomcat7.0: 32位 64位tomcat8.0: 32位 64位tomcat8.5: 32位 64位tomcat9.0: 32位 64位 在eclipse上配置Tomcat1.选择菜单栏中的window——preferences2.选择左侧的 server——runtime environment——在弹出的窗口中选择add3.选择你的Tomcat的版本4.选择tomcat的路径,完成配置 原文地址 转载请注明出处]]></content>
@@ -9,17 +20,6 @@
       </categories>
       <tags>
         <tag>tomcat</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[搭建个人博客]]></title>
-    <url>%2F2017%2F09%2F08%2F%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%2F</url>
-    <content type="text"><![CDATA[准备工具1.GitGit是一个开源的分布式版本控制系统，可以有效、高速的处理从很小到非常大的项目版本管理。官网下载地址https://git-scm.com/downloads2.Node.jsNode.js是一种javascript的运行环境，能够使得javascript脱离浏览器运行。官网下载地址https://nodejs.org/en/3.Githubgithub是一个基于git的web 协作社区，它有多种机制让大家协同的和你一起的对项目进行贡献。github全平台、全设备支持，你可以在任何终端上，随时随地的共享你的代码、评论或着其他有意义的信息。世界上最大的开源软件社区。Github官网https://github.com/ 安装Git下载好Git之后一路next安装即可,安装完成后打开cmd窗口输入下面命令1234567git --version``` ![1](Blog1.png) 如图所示若出现版本号则安装成功安装Node.js---Node安装更加简单，还是一路”Next”,最后等待安装完成即可.然后输入 node -vnpm -v12345678910111213141516171819202122232425![2](Blog2.png) 安装成功则结果如图所示 Github仓库仓库准备---首先进入Github官网注册Github账号 ![3](Blog3.png) ![4](Blog4.png) 注册成功后,点击New repository新建一个仓库,在Repository name一栏输入yourname.github.io这就是你的博客的域名.注意yourname必须与你注册的用户名一致,比如我的用户名为lstop,对应的仓库名为lstop.github.io ![5](Blog5.png) 然后进入仓库,会看到右上角有个Settings,点击打开这个库的setting页面，向下拖动，直到看见GitHub Pages,点击Automatic page generator，Github将会自动替你创建出一个gh-pages的页面.配置完成后,yourname.github.io这个网址就可以正常访问了. ![61](Blog61.jpg) ![62](Blog62.jpg)安装Hexo---hexo是基于node.js的静态博客，官网也是搭建在GitHub上的.首先在电脑上某个位置新建一个Blog的文件夹,然后鼠标右键会有一个Git Bash Here,点击打开,如下图所示 ![71](Blog71.png)![72](Blog72.png) 然后在命令行输入 npm install hexo-cli -gnpm install hexo –save12等待Hexo安装完成输入 hexo -v12345查看是否安装成功![8](Blog8.png)初始化---执行命令 hexo initnpm install12生成静态页面--- hexo g12本地启动--- hexo s1234567在看到下图提示之后,打开浏览器，输入localhost:4000,就可以在本地看到你的个人博客了![9](Blog9.png)大概就是这个样子![10](Blog10.png)部署到Gitub---首先要设置Git的username和email git config –global user.name “yourname”git config –global user.email “youremail”123然后这里需要配置SSH Keys,如果不配置那么以后每次提交都要手动输入账号密码配置完成后打开Blog目录下的_config.yml文件,打开找到Deployment,将其替换为下面一段话 DeploymentDocs: https://hexo.io/docs/deployment.htmldeploy: type: git repository: git@github.com:yourname/yourname.github.io.git,master branch: master1然后再执行 npm install hexo-deployer-git –savehexo d1234就基本上完成部署了,然后在浏览器输入https://yourname.github.io/就可以访问了写博客---在Blog\source\_posts目录下新建.md文件,写好后执行命令 hexo d -g```就可以发布到博客上 配置主题现在Github上有好多主题可以直接使用,上面有很详细的配置教程链接https://hexo.io/themes/]]></content>
-      <categories>
-        <category>配置</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
       </tags>
   </entry>
   <entry>
