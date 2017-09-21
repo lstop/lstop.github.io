@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lstop:201408lf@github.com/lstop/lstop.github.io.git/"/>
-  <updated>2017-09-21T13:15:19.845Z</updated>
+  <updated>2017-09-21T14:32:09.991Z</updated>
   <id>http://lstop:201408lf@github.com/lstop/lstop.github.io.git/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://lstop:201408lf@github.com/lstop/lstop.github.io.git/2017/09/21/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
     <id>http://lstop:201408lf@github.com/lstop/lstop.github.io.git/2017/09/21/搭建个人博客/</id>
     <published>2017-09-21T13:10:00.000Z</published>
-    <updated>2017-09-21T13:15:19.845Z</updated>
+    <updated>2017-09-21T14:32:09.991Z</updated>
     
     <content type="html"><![CDATA[<h2 id="准备工具"><a href="#准备工具" class="headerlink" title="准备工具"></a>准备工具</h2><p>1.Git<br>Git是一个开源的分布式版本控制系统，可以有效、高速的处理从很小到非常大的项目版本管理。<br>官网下载地址<a href="https://git-scm.com/downloads" target="_blank" rel="external">https://git-scm.com/downloads</a><br>2.Node.js<br>Node.js是一种javascript的运行环境，能够使得javascript脱离浏览器运行。<br>官网下载地址<a href="https://nodejs.org/en/" target="_blank" rel="external">https://nodejs.org/en/</a><br>3.Github<br>github是一个基于git的web 协作社区，它有多种机制让大家协同的和你一起的对项目进行贡献。<br>github全平台、全设备支持，你可以在任何终端上，随时随地的共享你的代码、评论或着其他有意义的信息。<br>世界上最大的开源软件社区。<br>Github官网<a href="https://github.com/">https://github.com/</a></p>
 <h2 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h2><p>下载好Git之后一路next安装即可,安装完成后打开cmd窗口输入下面命令   </p>
