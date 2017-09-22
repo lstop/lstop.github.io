@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lstop:201408lf@github.com/lstop/lstop.github.io.git/"/>
-  <updated>2017-09-22T02:56:06.984Z</updated>
+  <updated>2017-09-22T02:58:32.989Z</updated>
   <id>http://lstop:201408lf@github.com/lstop/lstop.github.io.git/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://lstop:201408lf@github.com/lstop/lstop.github.io.git/2017/09/21/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
     <id>http://lstop:201408lf@github.com/lstop/lstop.github.io.git/2017/09/21/搭建个人博客/</id>
     <published>2017-09-21T13:10:00.000Z</published>
-    <updated>2017-09-22T02:56:06.984Z</updated>
+    <updated>2017-09-22T02:58:32.989Z</updated>
     
     <content type="html"><![CDATA[<h2 id="准备工具"><a href="#准备工具" class="headerlink" title="准备工具"></a>准备工具</h2><p>1.Git<br>Git是一个开源的分布式版本控制系统，可以有效、高速的处理从很小到非常大的项目版本管理。<br>官网下载地址<a href="https://git-scm.com/downloads" target="_blank" rel="external">https://git-scm.com/downloads</a><br>2.Node.js<br>Node.js是一种javascript的运行环境，能够使得javascript脱离浏览器运行。<br>官网下载地址<a href="https://nodejs.org/en/" target="_blank" rel="external">https://nodejs.org/en/</a><br>3.Github<br>github是一个基于git的web 协作社区，它有多种机制让大家协同的和你一起的对项目进行贡献。<br>github全平台、全设备支持，你可以在任何终端上，随时随地的共享你的代码、评论或着其他有意义的信息。<br>世界上最大的开源软件社区。<br>Github官网<a href="https://github.com/">https://github.com/</a></p>
 <h2 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h2><p>下载好Git之后一路next安装即可,安装完成后打开cmd窗口输入下面命令   </p>
@@ -39,7 +39,7 @@
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">在看到下图提示之后,打开浏览器，输入localhost:4000,就可以在本地看到你的个人博客了</div><div class="line">![<span class="string">9</span>](<span class="link">https://raw.githubusercontent.com/lstop/lstop.github.io/master/image/Blog9.png</span>)</div><div class="line">大概就是这个样子</div><div class="line">![<span class="string">10</span>](<span class="link">https://raw.githubusercontent.com/lstop/lstop.github.io/master/image/Blog10.png</span>)</div><div class="line"></div><div class="line">部署到Gitub</div><div class="line">---</div><div class="line">首先要设置Git的username和email</div></pre></td></tr></table></figure>
 <p>git config –global user.name “yourname”<br>git config –global user.email “youremail”</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">然后这里需要配置<span class="selector-tag">SSH</span> <span class="selector-tag">Keys</span>,如果不配置那么以后每次提交都要手动输入账号密码</div><div class="line"></div><div class="line">配置完成后打开<span class="selector-tag">Blog</span>目录下的_<span class="selector-tag">config</span><span class="selector-class">.yml</span>文件,打开找到<span class="selector-tag">Deployment</span>,将其替换为下面一段话</div></pre></td></tr></table></figure>
-<h1 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h1><h2 id="Docs-https-hexo-io-docs-deployment-html"><a href="#Docs-https-hexo-io-docs-deployment-html" class="headerlink" title="Docs: https://hexo.io/docs/deployment.html"></a>Docs: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">https://hexo.io/docs/deployment.html</a></h2><p>deploy:<br>  type: git<br>  repository: git@github.com:yourname/yourname.github.io.git,master<br>  branch: master</p>
+<p>deploy:<br>  type: git<br>  repository: git@github.com:yourname/yourname.github.io.git,master<br>  branch: master</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">然后再执行</div></pre></td></tr></table></figure>
 <p>npm install hexo-deployer-git –save<br>hexo d</p>
 <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">就基本上完成部署了,然后在浏览器输入https://yourname.github.io/就可以访问了</div><div class="line"></div><div class="line">写博客</div><div class="line">---</div><div class="line">在Blog\source\<span class="emphasis">_posts目录下新建.md文件,写好后执行命令</span></div></pre></td></tr></table></figure>
