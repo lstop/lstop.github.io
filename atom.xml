@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lstop:201408lf@github.com/lstop/lstop.github.io.git/"/>
-  <updated>2017-09-22T06:10:25.652Z</updated>
+  <updated>2017-09-22T06:12:55.266Z</updated>
   <id>http://lstop:201408lf@github.com/lstop/lstop.github.io.git/</id>
   
   <author>
@@ -20,12 +20,12 @@
     <link href="http://lstop:201408lf@github.com/lstop/lstop.github.io.git/2017/09/21/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
     <id>http://lstop:201408lf@github.com/lstop/lstop.github.io.git/2017/09/21/搭建个人博客/</id>
     <published>2017-09-21T13:10:00.000Z</published>
-    <updated>2017-09-22T06:10:25.652Z</updated>
+    <updated>2017-09-22T06:12:55.266Z</updated>
     
     <content type="html"><![CDATA[<h2 id="准备工具"><a href="#准备工具" class="headerlink" title="准备工具"></a>准备工具</h2><p>1.Git<br>Git是一个开源的分布式版本控制系统，可以有效、高速的处理从很小到非常大的项目版本管理。<br>官网下载地址<a href="https://git-scm.com/downloads" target="_blank" rel="external">https://git-scm.com/downloads</a><br>2.Node.js<br>Node.js是一种javascript的运行环境，能够使得javascript脱离浏览器运行。<br>官网下载地址<a href="https://nodejs.org/en/" target="_blank" rel="external">https://nodejs.org/en/</a><br>3.Github<br>github是一个基于git的web 协作社区，它有多种机制让大家协同的和你一起的对项目进行贡献。<br>github全平台、全设备支持，你可以在任何终端上，随时随地的共享你的代码、评论或着其他有意义的信息。<br>世界上最大的开源软件社区。<br>Github官网<a href="https://github.com/">https://github.com/</a></p>
 <h2 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h2><p>下载好Git之后一路next安装即可,安装完成后打开cmd窗口输入下面命令<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="comment">--version</span></div></pre></td></tr></table></figure></p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="code">```</span></div><div class="line"><span class="code">                                                          </span></div><div class="line"></div><div class="line">![1](https://raw.githubusercontent.com/lstop/lstop.github.io/master/image/Blog1.png)                                        </div><div class="line">如图所示若出现版本号则安装成功</div><div class="line"></div><div class="line">安装Node.js</div><div class="line">------</div><div class="line">Node安装更加简单，还是一路”Next”,最后等待安装完成即可.然后输入</div></pre></td></tr></table></figure>
-<p>node -v<br>npm -v<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">```</div></pre></td></tr></table></figure></p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">                                                          </div><div class="line"></div><div class="line">![1](https://raw.githubusercontent.com/lstop/lstop.github.io/master/image/Blog1.png)                                        </div><div class="line">如图所示若出现版本号则安装成功</div><div class="line"></div><div class="line">安装Node.js</div><div class="line">------</div><div class="line"><span class="attribute">Node安装更加简单，还是一路”Next”,最后等待安装完成即可.然后输入</span></div></pre></td></tr></table></figure>
+<p>node -v<br>npm -v<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure></p>
 <p><img src="https://raw.githubusercontent.com/lstop/lstop.github.io/master/image/Blog2.png" alt="2"><br>安装成功则结果如图所示<br>Github仓库</p>
 <h2 id="仓库准备"><a href="#仓库准备" class="headerlink" title="仓库准备"></a>仓库准备</h2><p>首先进入Github官网注册Github账号<br><img src="https://raw.githubusercontent.com/lstop/lstop.github.io/master/image/Blog3.png" alt="3"><br><img src="https://raw.githubusercontent.com/lstop/lstop.github.io/master/image/Blog4.png" alt="4">                                                                        </p>
 <p>注册成功后,点击New repository新建一个仓库,在Repository name一栏输入yourname.github.io<br>这就是你的博客的域名.注意yourname必须与你注册的用户名一致,比如我的用户名为lstop,对应的仓库名为lstop.github.io<br><img src="https://raw.githubusercontent.com/lstop/lstop.github.io/master/image/Blog5.png" alt="5"></p>
