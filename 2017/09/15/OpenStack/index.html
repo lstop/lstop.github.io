@@ -1,0 +1,1749 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><meta name="baidu-site-verification" content="9Nf0MkQagM"><title>OpenStack配置 | lstop</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.1"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/7.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">OpenStack配置</h1><a id="logo" href="/.">lstop</a><p class="description">lstop的博客</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/history/"><i class="fa fa-archive"> 历史</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">OpenStack配置</h1><div class="post-meta">Sep 21, 2017<span> | </span><span class="category"><a href="/categories/配置/">配置</a></span><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span></div><div class="clear"><div id="toc" class="toc-article"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#准备工具"><span class="toc-number">1.</span> <span class="toc-text">准备工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装Git"><span class="toc-number">2.</span> <span class="toc-text">安装Git</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装Node-js"><span class="toc-number">3.</span> <span class="toc-text">安装Node.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#仓库准备"><span class="toc-number">4.</span> <span class="toc-text">仓库准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装Hexo"><span class="toc-number">5.</span> <span class="toc-text">安装Hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化"><span class="toc-number">6.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生成静态页面"><span class="toc-number">7.</span> <span class="toc-text">生成静态页面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#本地启动"><span class="toc-number">8.</span> <span class="toc-text">本地启动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#部署到Gitub"><span class="toc-number">9.</span> <span class="toc-text">部署到Gitub</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#写博客"><span class="toc-number">10.</span> <span class="toc-text">写博客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置主题"><span class="toc-number">11.</span> <span class="toc-text">配置主题</span></a></li></ol></div></div>
+
+<h4>一、安装环境准备</h4>
+<h5>1.1 OpenStack官方的硬件要求</h5>
+<p><img src='file://C:/Users/liufei/AppData/Roaming/Typora/typora-user-images/1540862049333.png' alt='1540862049333' referrerPolicy='no-referrer' /></p>
+<p>其中虚线部分是可选的，分别为块存储节点与对象存储节点。</p>
+<h5>1.2 硬件配置</h5>
+<pre><code>控制节点： cpu 1 ，内存 2G，存储 25G，网卡 2张
+计算节点： cpu 1 ，内存 2G，存储 25G，网卡 2张
+</code></pre>
+<h5>1.3 主机网络</h5>
+<p><img src='file://C:/Users/liufei/Desktop/networklayout.png' alt='' referrerPolicy='no-referrer' /></p>
+<p>控制节点</p>
+<pre><code>eth0：
+IPADDR=192.168.168.95
+NETMASK=255.255.255.0
+GATEWAY=192.168.168.1
+eth1：
+DEVICE=eth1
+TYPE=Ethernet
+ONBOOT=yes
+BOOTPROTO=none
+</code></pre>
+<p>计算节点</p>
+<pre><code>eth0：
+IPADDR=192.168.168.96
+NETMASK=255.255.255.0
+GATEWAY=192.168.168.1
+eth1：
+DEVICE=eth1
+TYPE=Ethernet
+ONBOOT=yes
+BOOTPROTO=none
+</code></pre>
+<h5>1.4 修改主机名</h5>
+<p>编辑文件/etc/hostname，删除原有内容，然后添加自己的主机名：</p>
+<pre><code># vi /etc/hostname
+控制节点添加：
+controlle
+计算节点添加：
+compute
+</code></pre>
+<p>（修改完成之后如果没生效，可以退出登录一次或者重启一次。）</p>
+<h5>1.5 增加主机名解析</h5>
+<p>编辑文件/etc/hosts，在其中增加如下内容：</p>
+<pre><code># vi /etc/hosts
+控制节点和计算节点都添加：
+192.168.168.95 controller
+192.168.168.96 compute
+</code></pre>
+<h5>1.6 关闭防火墙</h5>
+<pre><code># systemctl disable firewalld
+# systemctl stop firewalld
+</code></pre>
+<h5>1.7 禁用selinux</h5>
+<p>编辑/etc/selinux/config</p>
+<pre><code># vi /etc/selinux/config
+修改：
+SELINUX=disabled
+</code></pre>
+<p>（selinux的设置需要重启节点才能生效。）</p>
+<h4>二、OpenStack基础环境安装</h4>
+<h5>2.1 （控制节点）安装ntp服务</h5>
+<p>安装chrony</p>
+<pre><code># yum install chrony -y 
+</code></pre>
+<p>编辑配置文件/etc/chrony.conf</p>
+<pre><code># vi /etc/chrony.conf
+增加：
+server controller iburst
+allow 192.168.168.0/24 （允许其他节点可以连接到控制节点，这里设置的是控制节点eth0的CIDR）
+</code></pre>
+<p>设置服务的开机启动，并启动服务</p>
+<pre><code># systemctl enable chronyd
+# systemctl start chronyd
+</code></pre>
+<h5>2.2 （计算节点）安装ntp服务</h5>
+<p>安装chrony</p>
+<pre><code># yum install chrony -y
+</code></pre>
+<p>编辑配置文件/etc/chrony.conf，增加如下内容：</p>
+<pre><code># vi /etc/chrony.conf
+增加：
+server controller iburst
+</code></pre>
+<p>设置服务的开机启动，并启动服务</p>
+<pre><code># systemctl enable chronyd
+# systemctl start chronyd
+</code></pre>
+<h5>2.3 （控制节点、计算节点）安装OpenStack</h5>
+<p>安装OpenStack客户端之前，要先安装open stack，这里安装的是Q版</p>
+<pre><code># yum install centos-release-openstack-queens
+# yum install https://repos.fedorapeople.org/repos/openstack/openstack-queens/rdo-release-queens-1.noarch.rpm
+# yum upgrade
+</code></pre>
+<p>（升级完成之后重启节点）</p>
+<h5>2.4 （控制节点、计算节点）安装OpenStack客户端</h5>
+<pre><code># yum install python-openstackclient -y
+</code></pre>
+<h5>2.5 （控制节点、计算节点）安装openstack-selinux</h5>
+<pre><code># yum install openstack-selinux -y
+</code></pre>
+<h5>2.6 （控制节点）sql数据库安装</h5>
+<p>安装数据库</p>
+<pre><code># yum install mariadb mariadb-server python2-PyMySQL -y
+</code></pre>
+<p>创建并编辑文件/etc/my.cnf.d/openstack.cnf，增加如下内容：</p>
+<pre><code># vi /etc/my.cnf.d/openstack.cnf
+增加：
+#配置其它节点可以通过管理网络访问数据库
+[mysqld]
+bind-address = 192.168.168.95
+
+#启用一些有用的选项和 UTF-8 字符集
+default-storage-engine = innodb
+innodb_file_per_table = on
+max_connections = 4096
+collation-server = utf8_general_ci
+character-set-server = utf8
+</code></pre>
+<p>设置数据库服务的开机启动，并启动服务</p>
+<pre><code># systemctl enable mariadb.service
+# systemctl start mariadb.service
+</code></pre>
+<p>为数据库设置密码</p>
+<pre><code># mysql_secure_installation
+
+NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB
+      SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
+
+In order to log into MariaDB to secure it, we&#39;ll need the current
+password for the root user.  If you&#39;ve just installed MariaDB, and
+you haven&#39;t set the root password yet, the password will be blank,
+so you should just press enter here.
+
+Enter current password for root (enter for none):   #这里直接回车
+OK, successfully used password, moving on...
+
+Setting the root password ensures that nobody can log into the MariaDB
+root user without the proper authorisation.
+
+Set root password? [Y/n] y
+New password: 
+Re-enter new password:              #设置数据库的root密码，gyyf2018
+Password updated successfully!
+Reloading privilege tables..
+ ... Success!
+
+
+By default, a MariaDB installation has an anonymous user, allowing anyone
+to log into MariaDB without having to have a user account created for
+them.  This is intended only for testing, and to make the installation
+go a bit smoother.  You should remove them before moving into a
+production environment.
+
+Remove anonymous users? [Y/n] y
+ ... Success!
+
+Normally, root should only be allowed to connect from &#39;localhost&#39;.  This
+ensures that someone cannot guess at the root password from the network.
+
+Disallow root login remotely? [Y/n] y
+ ... Success!
+
+By default, MariaDB comes with a database named &#39;test&#39; that anyone can
+access.  This is also intended only for testing, and should be removed
+before moving into a production environment.
+
+Remove test database and access to it? [Y/n] y
+ - Dropping test database...
+ ... Success!
+ - Removing privileges on test database...
+ ... Success!
+
+Reloading the privilege tables will ensure that all changes made so far
+will take effect immediately.
+
+Reload privilege tables now? [Y/n] y
+ ... Success!
+
+Cleaning up...
+
+All done!  If you&#39;ve completed all of the above steps, your MariaDB
+installation should now be secure.
+
+Thanks for using MariaDB!
+</code></pre>
+<h5>2.7 （控制节点）安装消息队列</h5>
+<p>安装软件包</p>
+<pre><code># yum install rabbitmq-server -y
+</code></pre>
+<p>设置消息队列服务的开机自启，并启动服务</p>
+<pre><code># systemctl enable rabbitmq-server.service
+# systemctl start rabbitmq-server.service
+</code></pre>
+<p>添加openstack用户并设置openstack使用消息队列的权限</p>
+<pre><code># rabbitmqctl add_user openstack gyyf2018
+Creating user &quot;openstack&quot; ...
+
+# rabbitmqctl set_permissions openstack &quot;.*&quot; &quot;.*&quot; &quot;.*&quot;
+Setting permissions for user &quot;openstack&quot; in vhost &quot;/&quot; ...
+</code></pre>
+<h5>2.8 （控制节点）安装memcached服务</h5>
+<p>安装软件包</p>
+<pre><code># yum install memcached python-memcached -y
+</code></pre>
+<p>编辑/etc/sysconfig/memcached，修改以下内容</p>
+<pre><code># vi /etc/sysconfig/memcached
+修改：
+OPTIONS=&quot;-l 127.0.0.1,::1,controller&quot;
+</code></pre>
+<p>设置服务开机自启动，并启动服务</p>
+<pre><code># systemctl enable memcached.service
+# systemctl start memcached.service
+</code></pre>
+<h5>2.9 （控制节点）安装etcd服务</h5>
+<p>安装软件包</p>
+<pre><code># yum install etcd -y
+</code></pre>
+<p>编辑文件/etc/etcd/etcd.conf，设置以下内容</p>
+<pre><code># vi /etc/etcd/etcd.conf
+修改：
+#[Member]
+#ETCD_CORS=&quot;&quot;
+ETCD_DATA_DIR=&quot;/var/lib/etcd/default.etcd&quot;
+#ETCD_WAL_DIR=&quot;&quot;
+ETCD_LISTEN_PEER_URLS=&quot;http://localhost:2380&quot;
+ETCD_LISTEN_CLIENT_URLS=&quot;http://localhost:2379&quot;
+#ETCD_MAX_SNAPSHOTS=&quot;5&quot;
+#ETCD_MAX_WALS=&quot;5&quot;
+ETCD_NAME=&quot;controller&quot;
+#ETCD_SNAPSHOT_COUNT=&quot;100000&quot;
+#ETCD_HEARTBEAT_INTERVAL=&quot;100&quot;
+#ETCD_ELECTION_TIMEOUT=&quot;1000&quot;
+#ETCD_QUOTA_BACKEND_BYTES=&quot;0&quot;
+#ETCD_MAX_REQUEST_BYTES=&quot;1572864&quot;
+#ETCD_GRPC_KEEPALIVE_MIN_TIME=&quot;5s&quot;
+#ETCD_GRPC_KEEPALIVE_INTERVAL=&quot;2h0m0s&quot;
+#ETCD_GRPC_KEEPALIVE_TIMEOUT=&quot;20s&quot;
+#
+#[Clustering]
+ETCD_INITIAL_ADVERTISE_PEER_URLS=&quot;http://localhost:2380&quot;
+ETCD_ADVERTISE_CLIENT_URLS=&quot;http://localhost:2379&quot;
+#ETCD_DISCOVERY=&quot;&quot;
+#ETCD_DISCOVERY_FALLBACK=&quot;proxy&quot;
+#ETCD_DISCOVERY_PROXY=&quot;&quot;
+#ETCD_DISCOVERY_SRV=&quot;&quot;
+ETCD_INITIAL_CLUSTER=&quot;controller=http://localhost:2380&quot;
+ETCD_INITIAL_CLUSTER_TOKEN=&quot;etcd-cluster-01&quot;
+ETCD_INITIAL_CLUSTER_STATE=&quot;new&quot; 
+</code></pre>
+<p>设置开机服务自启动，并启动服务</p>
+<pre><code># systemctl enable etcd
+# systemctl start etcd
+</code></pre>
+<h4>三、OpenStack认证服务安装</h4>
+<h5>3.1 （控制节点）创建并配置keystone数据库</h5>
+<p>连接数据库</p>
+<pre><code># mysql -u root -pgyyf2018
+</code></pre>
+<p>创建数据库，设置keystone数据库的访问权限</p>
+<pre><code>MariaDB [(none)]&gt; CREATE DATABASE keystone;
+MariaDB [(none)]&gt; GRANT ALL PRIVILEGES ON keystone.* TO &#39;keystone&#39;@&#39;localhost&#39; \
+IDENTIFIED BY &#39;gyyf2018&#39;;
+MariaDB [(none)]&gt; GRANT ALL PRIVILEGES ON keystone.* TO &#39;keystone&#39;@&#39;%&#39; \
+IDENTIFIED BY &#39;gyyf2018&#39;;              
+
+</code></pre>
+<h5>3.2 <strong>（控制节点）安装并配置服务</strong> </h5>
+<p>安装软件包</p>
+<pre><code># yum install openstack-keystone httpd mod_wsgi -y
+
+</code></pre>
+<p>编辑/etc/keystone/keystone.conf，设置以下内容</p>
+<pre><code># vi /etc/keystone/keystone.conf
+修改：
+#配置数据库访问
+[database]
+connection = mysql+pymysql://keystone:gyyf2018@controller/keystone
+...
+
+#配置Fernet UUID令牌的提供者
+[token]
+provider = fernet
+...
+
+</code></pre>
+<p>导入keystone数据库表结构</p>
+<pre><code># su -s /bin/sh -c &quot;keystone-manage db_sync&quot; keystone
+
+</code></pre>
+<p>初始化，引导认证服务</p>
+<pre><code># keystone-manage fernet_setup --keystone-user keystone --keystone-group keystone
+# keystone-manage credential_setup --keystone-user keystone --keystone-group keystone
+
+# keystone-manage bootstrap --bootstrap-password gyyf2018 \
+  --bootstrap-admin-url http://controller:35357/v3/ \
+  --bootstrap-internal-url http://controller:5000/v3/ \
+  --bootstrap-public-url http://controller:5000/v3/ \
+  --bootstrap-region-id RegionOne
+
+</code></pre>
+<h5>3.3 <strong>（控制节点）配置apache服务</strong> </h5>
+<p>编辑文件/etc/httpd/conf/httpd.conf</p>
+<pre><code># vi /etc/httpd/conf/httpd.conf
+添加：
+ServerName controller
+
+</code></pre>
+<p>创建链接文件，设置服务的开机启动</p>
+<pre><code># ln -s /usr/share/keystone/wsgi-keystone.conf /etc/httpd/conf.d/
+
+# systemctl enable httpd.service
+# systemctl start httpd.service
+
+</code></pre>
+<h5>3.4 <strong>（控制节点）创建相关域、项目、用户和角色</strong> </h5>
+<p>导入管理员环境变量信息</p>
+<pre><code># export OS_USERNAME=admin
+# export OS_PASSWORD=gyyf2018
+# export OS_PROJECT_NAME=admin
+# export OS_USER_DOMAIN_NAME=Default
+# export OS_PROJECT_DOMAIN_NAME=Default
+# export OS_AUTH_URL=http://controller:35357/v3
+# export OS_IDENTITY_API_VERSION=3
+
+</code></pre>
+<p>创建域</p>
+<pre><code># openstack domain create --description &quot;An Example Domain&quot; example
+
++-------------+----------------------------------+
+| Field       | Value                            |
++-------------+----------------------------------+
+| description | An Example Domain                |
+| enabled     | True                             |
+| id          | 28d83de95e064d909f3c82de49e49982 |
+| name        | example                          |
+| tags        | []                               |
++-------------+----------------------------------+
+
+</code></pre>
+<p>创建service项目</p>
+<pre><code># openstack project create --domain default \
+  --description &quot;Service Project&quot; service
+  
++-------------+----------------------------------+
+| Field       | Value                            |
++-------------+----------------------------------+
+| description | Service Project                  |
+| domain_id   | default                          |
+| enabled     | True                             |
+| id          | d5442e942ee1481281d78e0a81d19601 |
+| is_domain   | False                            |
+| name        | service                          |
+| parent_id   | default                          |
+| tags        | []                               |
++-------------+----------------------------------+
+
+</code></pre>
+<p>创建demo项目</p>
+<pre><code># openstack project create --domain default \
+  --description &quot;Demo Project&quot; demo
+  
++-------------+----------------------------------+
+| Field       | Value                            |
++-------------+----------------------------------+
+| description | Demo Project                     |
+| domain_id   | default                          |
+| enabled     | True                             |
+| id          | 3f3f3e87192d4b5bb32b2a9db39a4be0 |
+| is_domain   | False                            |
+| name        | demo                             |
+| parent_id   | default                          |
+| tags        | []                               |
++-------------+----------------------------------+
+
+</code></pre>
+<p>创建demo用户</p>
+<pre><code># openstack user create --domain default \
+  --password-prompt demo
+
+User Password:
+Repeat User Password:         --设置demo用户的密码，gyyf2018
++---------------------+----------------------------------+
+| Field               | Value                            |
++---------------------+----------------------------------+
+| domain_id           | default                          |
+| enabled             | True                             |
+| id                  | daf47114440741d3b213a5eb58a58006 |
+| name                | demo                             |
+| options             | {}                               |
+| password_expires_at | None                             |
++---------------------+----------------------------------+
+
+</code></pre>
+<p>创建用户角色</p>
+<pre><code># openstack role create user
+
++-----------+----------------------------------+
+| Field     | Value                            |
++-----------+----------------------------------+
+| domain_id | None                             |
+| id        | 10a36ef5803045dda2df3ed3480ce2bd |
+| name      | user                             |
++-----------+----------------------------------+
+
+</code></pre>
+<p>给demo用户添加user角色</p>
+<pre><code># openstack role add --project demo --user demo user
+
+</code></pre>
+<h5>3.5 （控制节点）验证操作</h5>
+<p>解除环境变量的设置</p>
+<pre><code># unset OS_AUTH_URL OS_PASSWORD
+
+</code></pre>
+<p>使用admin用户请求token</p>
+<pre><code># openstack --os-auth-url http://controller:35357/v3 \
+  --os-project-domain-name Default --os-user-domain-name Default \
+  --os-project-name admin --os-username admin token issue
+  
+Password: gyyf2018
++------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Field      | Value                                                                                                                                                                                   |
++------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| expires    | 2018-04-25T12:09:55+0000                                                                                                                                                                |
+| id         | gAAAAABa4GID_fKwaNHti1QiDmjG4Ox0113RmaZ7DpMytBBB6gEsMoPTrHArevpYK1-gqv3UOPPSb6emHe29YfxxsXZBqfiq3C4IijCm5e-XetfgXarAsfgvlzAsao6jFkmLKbhMklzBZOA7ZH0t_TZJi_SuD5lkVsQv5wdWlPbQlgA4VvS0vmA |
+| project_id | c4e73f33137b49dcb1ff949f3d95de36                                                                                                                                                        |
+| user_id    | 88c329ab63b34c57a8996c5237cb1ba3                                                                                                                                                        |
++------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+</code></pre>
+<p>使用demo用户请求token</p>
+<pre><code># openstack --os-auth-url http://controller:5000/v3 \
+  --os-project-domain-name Default --os-user-domain-name Default \
+  --os-project-name demo --os-username demo token issue
+
+Password: gyyf2018
++------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Field      | Value                                                                                                                                                                                   |
++------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| expires    | 2018-04-25T12:12:28+0000                                                                                                                                                                |
+| id         | gAAAAABa4GKcKjwpbL2NqgpDXk1lrkmwEjbj_gLfDf3DmR2xmI9TfA4W85ZSX8ql-Jjol8o3wmbWT2CL4--Ekhi3eciwtRYdLZke3Pf0jCRsZBpFeWSQQSb5yLpl5haQ78thAyBusUfkZTB7i1oOwjyl6_16OyJYpMm74l9IpWI6pqaIy4AKjLE |
+| project_id | 3f3f3e87192d4b5bb32b2a9db39a4be0                                                                                                                                                        |
+| user_id    | daf47114440741d3b213a5eb58a58006                                                                                                                                                        |
++------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+</code></pre>
+<h5>3.6 （控制节点）创建环境变量脚本</h5>
+<p>随便找个地方，比如/opt</p>
+<p>创建admin-openrc文件增加如下内容</p>
+<pre><code># vi admin-openrc
+增加：
+export OS_PROJECT_DOMAIN_NAME=Default
+export OS_USER_DOMAIN_NAME=Default
+export OS_PROJECT_NAME=admin
+export OS_USERNAME=admin
+export OS_PASSWORD=gyyf2018
+export OS_AUTH_URL=http://controller:5000/v3
+export OS_IDENTITY_API_VERSION=3
+export OS_IMAGE_API_VERSION=2
+
+</code></pre>
+<p>创建demo-openrc文件增加如下内容</p>
+<pre><code># vi demo-openrc
+增加：
+export OS_PROJECT_DOMAIN_NAME=Default
+export OS_USER_DOMAIN_NAME=Default
+export OS_PROJECT_NAME=demo
+export OS_USERNAME=demo
+export OS_PASSWORD=gyyf2018
+export OS_AUTH_URL=http://controller:5000/v3
+export OS_IDENTITY_API_VERSION=3
+export OS_IMAGE_API_VERSION=2
+
+</code></pre>
+<p>验证下脚本的效果</p>
+<pre><code># . admin-openrc
+# openstack token issue
+
++------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Field      | Value                                                                                                                                                                                   |
++------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| expires    | 2018-04-25T12:18:13+0000                                                                                                                                                                |
+| id         | gAAAAABa4GP1AoWBOcAHW9w1nr2CNlBs3HqK1-bzXsDekLtiHiEtkWbpxPMiloUv2x3uhZ2kM7XJtP9V4Ugy9BMev9cvV1qy1GZh_U-EElJlLEf4IgBf4SiCGGd2BjQiq0cCT55y2cXK8pmRKZKIlzFUwoBCHpc75yqnEJk6Rz3Upsk7HYT3c0k |
+| project_id | c4e73f33137b49dcb1ff949f3d95de36                                                                                                                                                        |
+| user_id    | 88c329ab63b34c57a8996c5237cb1ba3                                                                                                                                                        |
++------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+</code></pre>
+<h4>四、OpenStack镜像服务安装</h4>
+<h5>4.1 （控制节点）配置镜像数据库</h5>
+<p>连接数据库</p>
+<pre><code># mysql -u root -pgyyf2018
+
+</code></pre>
+<p>创建glance数据库并设置访问权限</p>
+<pre><code>MariaDB [(none)]&gt; CREATE DATABASE glance;
+
+MariaDB [(none)]&gt; GRANT ALL PRIVILEGES ON glance.* TO &#39;glance&#39;@&#39;localhost&#39; \
+  IDENTIFIED BY &#39;gyyf2018&#39;;
+
+MariaDB [(none)]&gt; GRANT ALL PRIVILEGES ON glance.* TO &#39;glance&#39;@&#39;%&#39; \
+  IDENTIFIED BY &#39;gyyf2018&#39;;
+
+</code></pre>
+<h5>4.2 （控制节点）创建glance认证相关信息</h5>
+<p>设置admin环境变量</p>
+<pre><code># . admin-openrc
+
+</code></pre>
+<p>创建glance用户</p>
+<pre><code># openstack user create --domain default --password-prompt glance
+
+User Password:
+Repeat User Password:       设置glance用户密码，gyyf2018
++---------------------+----------------------------------+
+| Field               | Value                            |
++---------------------+----------------------------------+
+| domain_id           | default                          |
+| enabled             | True                             |
+| id                  | 0bf68fa1a87c4760859f9f34697a8753 |
+| name                | glance                           |
+| options             | {}                               |
+| password_expires_at | None                             |
++---------------------+----------------------------------+
+
+</code></pre>
+<p>将glance用户加入service项目，并设置admin角色</p>
+<pre><code># openstack role add --project service --user glance admin
+
+</code></pre>
+<p>创建镜像服务</p>
+<pre><code># openstack service create --name glance \
+  --description &quot;OpenStack Image&quot; image
+  
++-------------+----------------------------------+
+| Field       | Value                            |
++-------------+----------------------------------+
+| description | OpenStack Image                  |
+| enabled     | True                             |
+| id          | 520b45f9c795468ab50a5c7c363babef |
+| name        | glance                           |
+| type        | image                            |
++-------------+----------------------------------+
+
+</code></pre>
+<p>创建镜像api端口</p>
+<pre><code># openstack endpoint create --region RegionOne \
+  image public http://controller:9292
+
++--------------+----------------------------------+
+| Field        | Value                            |
++--------------+----------------------------------+
+| enabled      | True                             |
+| id           | ff8c65b2d96c4329a85954ed4ac13853 |
+| interface    | public                           |
+| region       | RegionOne                        |
+| region_id    | RegionOne                        |
+| service_id   | 520b45f9c795468ab50a5c7c363babef |
+| service_name | glance                           |
+| service_type | image                            |
+| url          | http://controller:9292           |
++--------------+----------------------------------+
+
+# openstack endpoint create --region RegionOne \
+  image internal http://controller:9292
+
++--------------+----------------------------------+
+| Field        | Value                            |
++--------------+----------------------------------+
+| enabled      | True                             |
+| id           | 5d930d23645541b3ad76c9bb29426519 |
+| interface    | internal                         |
+| region       | RegionOne                        |
+| region_id    | RegionOne                        |
+| service_id   | 520b45f9c795468ab50a5c7c363babef |
+| service_name | glance                           |
+| service_type | image                            |
+| url          | http://controller:9292           |
++--------------+----------------------------------+
+
+# openstack endpoint create --region RegionOne \
+  image admin http://controller:9292
+
++--------------+----------------------------------+
+| Field        | Value                            |
++--------------+----------------------------------+
+| enabled      | True                             |
+| id           | e0fc9759fb7b4d4790d225aaedcdcf31 |
+| interface    | admin                            |
+| region       | RegionOne                        |
+| region_id    | RegionOne                        |
+| service_id   | 520b45f9c795468ab50a5c7c363babef |
+| service_name | glance                           |
+| service_type | image                            |
+| url          | http://controller:9292           |
++--------------+----------------------------------+
+
+</code></pre>
+<h5>4.3 （控制节点）安装软件包并配置配置文件</h5>
+<p>安装软件包</p>
+<pre><code># yum install openstack-glance -y
+
+</code></pre>
+<p>编辑/etc/glance/glance-api.conf文件并完成下面配置</p>
+<pre><code># vi /etc/glance/glance-api.conf
+修改：
+#配置数据库访问
+[database]
+connection = mysql+pymysql://glance:gyyf2018@controller/glance
+...
+
+#配置认证服务访问
+[keystone_authtoken]
+auth_uri = http://controller:5000
+auth_url = http://controller:5000
+memcached_servers = controller:11211
+auth_type = password
+project_domain_name = Default
+user_domain_name = Default
+project_name = service
+username = glance
+password = gyyf2018
+...
+
+[paste_deploy]
+flavor = keystone
+...
+
+#配置本地文件系统存储和镜像文件位置
+[glance_store]
+stores = file,http
+default_store = file
+filesystem_store_datadir = /var/lib/glance/images/
+...
+
+</code></pre>
+<p>编辑/etc/glance/glance-registry.conf文件，完成以下配置</p>
+<pre><code># vi /etc/glance/glance-registry.conf
+修改：
+#配置数据库访问
+[database]
+connection = mysql+pymysql://glance:gyyf2018@controller/glance
+...
+
+#配置认证服务访问
+[keystone_authtoken]
+auth_uri = http://controller:5000
+auth_url = http://controller:5000
+memcached_servers = controller:11211
+auth_type = password
+project_domain_name = Default
+user_domain_name = Default
+project_name = service
+username = glance
+password = gyyf2018
+...
+
+[paste_deploy]
+flavor = keystone
+...
+
+</code></pre>
+<p>同步数据库</p>
+<pre><code># su -s /bin/sh -c &quot;glance-manage db_sync&quot; glance
+
+</code></pre>
+<p>设置服务的开机自启动，并启动服务</p>
+<pre><code># systemctl enable openstack-glance-api.service \
+  openstack-glance-registry.service
+# systemctl start openstack-glance-api.service \
+  openstack-glance-registry.service
+
+</code></pre>
+<h5>4.4 <strong>（控制节点）验证操作</strong> </h5>
+<p> 设置环境变量</p>
+<pre><code># . admin-openrc
+
+</code></pre>
+<p>下载镜像</p>
+<pre><code># yum install wget -y
+# wget http://download.cirros-cloud.net/0.3.5/cirros-0.3.5-x86_64-disk.img
+
+</code></pre>
+<p>上传镜像</p>
+<pre><code># openstack image create &quot;cirros&quot; \
+  --file cirros-0.3.5-x86_64-disk.img \
+  --disk-format qcow2 --container-format bare \
+  --public
+
++------------------+------------------------------------------------------+
+| Field            | Value                                                |
++------------------+------------------------------------------------------+
+| checksum         | f8ab98ff5e73ebab884d80c9dc9c7290                     |
+| container_format | bare                                                 |
+| created_at       | 2018-04-25T12:13:57Z                                 |
+| disk_format      | qcow2                                                |
+| file             | /v2/images/0466e837-7d0c-4ebd-a2a1-194e80635d98/file |
+| id               | 0466e837-7d0c-4ebd-a2a1-194e80635d98                 |
+| min_disk         | 0                                                    |
+| min_ram          | 0                                                    |
+| name             | cirros                                               |
+| owner            | c4e73f33137b49dcb1ff949f3d95de36                     |
+| protected        | False                                                |
+| schema           | /v2/schemas/image                                    |
+| size             | 13267968                                             |
+| status           | active                                               |
+| tags             |                                                      |
+| updated_at       | 2018-04-25T12:14:58Z                                 |
+| virtual_size     | None                                                 |
+| visibility       | public                                               |
++------------------+------------------------------------------------------+
+
+</code></pre>
+<p>确认下镜像是否成功上传</p>
+<pre><code># openstack image list
+
++--------------------------------------+--------+--------+
+| ID                                   | Name   | Status |
++--------------------------------------+--------+--------+
+| 0466e837-7d0c-4ebd-a2a1-194e80635d98 | cirros | active |
++--------------------------------------+--------+--------+
+
+</code></pre>
+<h4>五、OpenStack计算服务安装</h4>
+<h5>5.1 <strong>（控制节点）配置数据库</strong> </h5>
+<p>连接数据库</p>
+<pre><code># mysql -u root -pgyyf2018
+
+</code></pre>
+<p>创建nova相关数据库并设置访问权限</p>
+<pre><code>MariaDB [(none)]&gt; CREATE DATABASE nova_api;
+MariaDB [(none)]&gt; CREATE DATABASE nova;
+MariaDB [(none)]&gt; CREATE DATABASE nova_cell0;
+
+
+MariaDB [(none)]&gt; GRANT ALL PRIVILEGES ON nova_api.* TO &#39;nova&#39;@&#39;localhost&#39; \
+  IDENTIFIED BY &#39;gyyf2018&#39;;
+MariaDB [(none)]&gt; GRANT ALL PRIVILEGES ON nova_api.* TO &#39;nova&#39;@&#39;%&#39; \
+  IDENTIFIED BY &#39;gyyf2018&#39;;
+
+MariaDB [(none)]&gt; GRANT ALL PRIVILEGES ON nova.* TO &#39;nova&#39;@&#39;localhost&#39; \
+  IDENTIFIED BY &#39;gyyf2018&#39;;
+MariaDB [(none)]&gt; GRANT ALL PRIVILEGES ON nova.* TO &#39;nova&#39;@&#39;%&#39; \
+  IDENTIFIED BY &#39;gyyf2018&#39;;
+
+MariaDB [(none)]&gt; GRANT ALL PRIVILEGES ON nova_cell0.* TO &#39;nova&#39;@&#39;localhost&#39; \
+  IDENTIFIED BY &#39;gyyf2018&#39;;
+MariaDB [(none)]&gt; GRANT ALL PRIVILEGES ON nova_cell0.* TO &#39;nova&#39;@&#39;%&#39; \
+  IDENTIFIED BY &#39;gyyf2018&#39;;
+
+</code></pre>
+<h5>5.2 （控制节点）创建nova认证相关信息</h5>
+<p>设置admin环境变量</p>
+<pre><code># . admin-openrc
+
+</code></pre>
+<p>创建nova用户</p>
+<pre><code># openstack user create --domain default --password-prompt nova
+
+User Password:
+Repeat User Password:        设置nova用户的密码，gyyf2018
++---------------------+----------------------------------+
+| Field               | Value                            |
++---------------------+----------------------------------+
+| domain_id           | default                          |
+| enabled             | True                             |
+| id                  | 1cde1ce579c241a5906684adba106d93 |
+| name                | nova                             |
+| options             | {}                               |
+| password_expires_at | None                             |
++---------------------+----------------------------------+
+
+</code></pre>
+<p>给nova用户添加admin角色</p>
+<pre><code># openstack role add --project service --user nova admin
+
+</code></pre>
+<p>创建nova服务</p>
+<pre><code># openstack service create --name nova \
+  --description &quot;OpenStack Compute&quot; compute
+
++-------------+----------------------------------+
+| Field       | Value                            |
++-------------+----------------------------------+
+| description | OpenStack Compute                |
+| enabled     | True                             |
+| id          | 01ffdb12a467441a94d0f3aba7b85136 |
+| name        | nova                             |
+| type        | compute                          |
++-------------+----------------------------------+
+
+</code></pre>
+<p>创建计算api端口</p>
+<pre><code># openstack endpoint create --region RegionOne \
+  compute public http://controller:8774/v2.1
+
++--------------+----------------------------------+
+| Field        | Value                            |
++--------------+----------------------------------+
+| enabled      | True                             |
+| id           | 88c9171ba5ee481c9031f59c18e72d8e |
+| interface    | public                           |
+| region       | RegionOne                        |
+| region_id    | RegionOne                        |
+| service_id   | 01ffdb12a467441a94d0f3aba7b85136 |
+| service_name | nova                             |
+| service_type | compute                          |
+| url          | http://controller:8774/v2.1      |
++--------------+----------------------------------+
+
+# openstack endpoint create --region RegionOne \
+  compute internal http://controller:8774/v2.1
+
++--------------+----------------------------------+
+| Field        | Value                            |
++--------------+----------------------------------+
+| enabled      | True                             |
+| id           | 53121a04b0f14da69a13dcb8323c0304 |
+| interface    | internal                         |
+| region       | RegionOne                        |
+| region_id    | RegionOne                        |
+| service_id   | 01ffdb12a467441a94d0f3aba7b85136 |
+| service_name | nova                             |
+| service_type | compute                          |
+| url          | http://controller:8774/v2.1      |
++--------------+----------------------------------+
+
+# openstack endpoint create --region RegionOne \
+  compute admin http://controller:8774/v2.1
+
++--------------+----------------------------------+
+| Field        | Value                            |
++--------------+----------------------------------+
+| enabled      | True                             |
+| id           | 31e7047e34104204aeddca406a534b81 |
+| interface    | admin                            |
+| region       | RegionOne                        |
+| region_id    | RegionOne                        |
+| service_id   | 01ffdb12a467441a94d0f3aba7b85136 |
+| service_name | nova                             |
+| service_type | compute                          |
+| url          | http://controller:8774/v2.1      |
++--------------+----------------------------------+
+
+</code></pre>
+<p>创建placement服务用户</p>
+<pre><code># openstack user create --domain default --password-prompt placement
+User Password:
+Repeat User Password:        设置placement用户的密码，gyyf2018
++---------------------+----------------------------------+
+| Field               | Value                            |
++---------------------+----------------------------------+
+| domain_id           | default                          |
+| enabled             | True                             |
+| id                  | cef9b0bd33a14f20b375f864f148822f |
+| name                | placement                        |
+| options             | {}                               |
+| password_expires_at | None                             |
++---------------------+----------------------------------+
+
+</code></pre>
+<p>添加placement用户到服务项目</p>
+<pre><code># openstack role add --project service --user placement admin
+
+</code></pre>
+<p>创建placement api服务</p>
+<pre><code># openstack service create --name placement --description &quot;Placement API&quot; placement
+
++-------------+----------------------------------+
+| Field       | Value                            |
++-------------+----------------------------------+
+| description | Placement API                    |
+| enabled     | True                             |
+| id          | 4822cd7e915a4470aeecbc24643a5ee8 |
+| name        | placement                        |
+| type        | placement                        |
++-------------+----------------------------------+
+
+</code></pre>
+<p>创建placement api服务端口</p>
+<pre><code># openstack endpoint create --region RegionOne placement public http://controller:8778
+
++--------------+----------------------------------+
+| Field        | Value                            |
++--------------+----------------------------------+
+| enabled      | True                             |
+| id           | 848bc5a3161a4de88cc3ac77964487ad |
+| interface    | public                           |
+| region       | RegionOne                        |
+| region_id    | RegionOne                        |
+| service_id   | 4822cd7e915a4470aeecbc24643a5ee8 |
+| service_name | placement                        |
+| service_type | placement                        |
+| url          | http://controller:8778           |
++--------------+----------------------------------+
+
+# openstack endpoint create --region RegionOne placement internal http://controller:8778
+
++--------------+----------------------------------+
+| Field        | Value                            |
++--------------+----------------------------------+
+| enabled      | True                             |
+| id           | fe72f5f0207840c6a05a836955179941 |
+| interface    | internal                         |
+| region       | RegionOne                        |
+| region_id    | RegionOne                        |
+| service_id   | 4822cd7e915a4470aeecbc24643a5ee8 |
+| service_name | placement                        |
+| service_type | placement                        |
+| url          | http://controller:8778           |
++--------------+----------------------------------+
+
+# openstack endpoint create --region RegionOne placement admin http://controller:8778
+
++--------------+----------------------------------+
+| Field        | Value                            |
++--------------+----------------------------------+
+| enabled      | True                             |
+| id           | 13fc18d3fe6a422c8e0008522ae9c617 |
+| interface    | admin                            |
+| region       | RegionOne                        |
+| region_id    | RegionOne                        |
+| service_id   | 4822cd7e915a4470aeecbc24643a5ee8 |
+| service_name | placement                        |
+| service_type | placement                        |
+| url          | http://controller:8778           |
++--------------+----------------------------------+
+
+</code></pre>
+<h5>5.3 （控制节点）安装软件包并配置组件</h5>
+<p>安装软件包</p>
+<pre><code># yum install openstack-nova-api openstack-nova-conductor \
+  openstack-nova-console openstack-nova-novncproxy \
+  openstack-nova-scheduler openstack-nova-placement-api -y
+
+</code></pre>
+<p>编辑/etc/nova/nova.conf文件并完成以下配置</p>
+<pre><code># vi /etc/nova/nova.conf
+修改：
+#启用计算和元数据API，配置消息队列访问，使用 Networking 服务
+[DEFAULT]
+enabled_apis = osapi_compute,metadata
+transport_url = rabbit://openstack:gyyf2018@controller
+my_ip = 192.168.168.95
+use_neutron = True
+firewall_driver = nova.virt.firewall.NoopFirewallDriver
+...
+
+#配置数据库连接
+[api_database]
+connection = mysql+pymysql://nova:gyyf2018@controller/nova_api
+...
+
+[database]
+connection = mysql+pymysql://nova:gyyf2018@controller/nova
+...
+
+[api]
+auth_strategy = keystone
+...
+
+#配置认证服务访问
+[keystone_authtoken]
+auth_uri = http://controller:5000
+auth_url = http://controller:35357
+memcached_servers = controller:11211
+auth_type = password
+project_domain_name = default
+user_domain_name = default
+project_name = service
+username = nova
+password = gyyf2018
+...
+
+#配置VNC代理
+[vnc]
+enabled = true
+server_listen = $my_ip
+server_proxyclient_address = $my_ip
+...
+
+#配置镜像服务 API 的位置
+[glance]
+api_servers = http://controller:9292
+...
+
+#配置锁路径
+[oslo_concurrency]
+lock_path = /var/lib/nova/tmp
+...
+
+#配置缓存服务
+[placement]
+os_region_name = RegionOne
+project_domain_name = Default
+project_name = service
+auth_type = password
+user_domain_name = Default
+auth_url = http://controller:35357/v3
+username = placement
+password = gyyf2018
+...
+
+</code></pre>
+<p>因为软件包的bug，编辑/etc/httpd/conf.d/00-nova-placement-api.conf文件增加如下内容</p>
+<pre><code># vi /etc/httpd/conf.d/00-nova-placement-api.conf
+添加：
+&lt;Directory /usr/bin&gt;
+  &lt;IfVersion &gt;= 2.4&gt;
+    Require all granted
+  &lt;/IfVersion&gt;
+  &lt;IfVersion &lt; 2.4&gt;
+    Order allow,deny
+    Allow from all
+  &lt;/IfVersion&gt;
+&lt;/Directory&gt;
+
+</code></pre>
+<p>重启httpd服务</p>
+<pre><code># systemctl restart httpd
+
+</code></pre>
+<p>导入相关数据库表结构</p>
+<pre><code># su -s /bin/sh -c &quot;nova-manage api_db sync&quot; nova
+这里会有worning，不影响
+# su -s /bin/sh -c &quot;nova-manage cell_v2 map_cell0&quot; nova
+# su -s /bin/sh -c &quot;nova-manage cell_v2 create_cell --name=cell1 --verbose&quot; nova
+c354ac0-a088-4dbb-b106-e795ebeaec32
+# su -s /bin/sh -c &quot;nova-manage db sync&quot; nova
+
+</code></pre>
+<p>验证cell0和cell1是否成功注册</p>
+<pre><code># nova-manage cell_v2 list_cells
+
++-------+--------------------------------------+------------------------------------+-------------------------------------------------+
+|  名称 |                 UUID                 |           Transport URL            |                    数据库连接                   |
++-------+--------------------------------------+------------------------------------+-------------------------------------------------+
+| cell0 | 00000000-0000-0000-0000-000000000000 |               none:/               | mysql+pymysql://nova:****@controller/nova_cell0 |
+| cell1 | fc354ac0-a088-4dbb-b106-e795ebeaec32 | rabbit://openstack:****@controller |    mysql+pymysql://nova:****@controller/nova    |
++-------+--------------------------------------+------------------------------------+-------------------------------------------------+
+
+</code></pre>
+<p>设置服务的开机自启动，并启动服务</p>
+<pre><code># systemctl enable openstack-nova-api.service \
+  openstack-nova-consoleauth.service openstack-nova-scheduler.service \
+  openstack-nova-conductor.service openstack-nova-novncproxy.service
+# systemctl start openstack-nova-api.service \
+  openstack-nova-consoleauth.service openstack-nova-scheduler.service \
+  openstack-nova-conductor.service openstack-nova-novncproxy.service
+
+</code></pre>
+<h5>5.4 （计算节点）在计算节点安装计算服务</h5>
+<p>安装软件包</p>
+<pre><code># yum install openstack-nova-compute -y
+
+</code></pre>
+<p>编辑/etc/nova/nova.conf文件并设置如下内容</p>
+<pre><code># vi /etc/nova/nova.conf
+修改：
+#配置消息队列，使用 Networking 服务
+[DEFAULT]
+enabled_apis = osapi_compute,metadata
+transport_url = rabbit://openstack:gyyf2018@controller
+my_ip = 192.168.168.96
+use_neutron = True
+firewall_driver = nova.virt.firewall.NoopFirewallDriver
+...
+
+[api]
+auth_strategy = keystone
+...
+
+#配置认证服务访问
+[keystone_authtoken]
+auth_uri = http://controller:5000
+auth_url = http://controller:35357
+memcached_servers = controller:11211
+auth_type = password
+project_domain_name = default
+user_domain_name = default
+project_name = service
+username = nova
+password = gyyf2018
+...
+
+#启用并配置远程控制台访问
+[vnc]
+enabled = True
+server_listen = 0.0.0.0
+server_proxyclient_address = $my_ip
+novncproxy_base_url = http://192.168.168.95:6080/vnc_auto.html
+...
+
+#配置镜像服务 API 的位置
+[glance]
+api_servers = http://controller:9292
+...
+
+#配置锁路径
+[oslo_concurrency]
+lock_path = /var/lib/nova/tmp
+...
+
+#配置缓存服务
+[placement]
+os_region_name = RegionOne
+project_domain_name = Default
+project_name = service
+auth_type = password
+user_domain_name = Default
+auth_url = http://controller:35357/v3
+username = placement
+password = gyyf2018
+
+</code></pre>
+<p>检测当前计算节点是否支持硬件虚拟化</p>
+<pre><code># egrep -c &#39;(vmx|svm)&#39; /proc/cpuinfo
+0表示不支持虚拟化
+
+</code></pre>
+<p>编辑/etc/nova/nova.conf文件设置qemu来提供软件虚拟化</p>
+<pre><code># vi /etc/nova/nova.conf
+修改：
+[libvirt]
+virt_type = qemu
+...
+
+</code></pre>
+<p>设置服务的开机自启动，并启动计算服务</p>
+<pre><code># systemctl enable libvirtd.service openstack-nova-compute.service
+# systemctl start libvirtd.service openstack-nova-compute.service
+
+</code></pre>
+<h5>5.5 <strong>（控制节点）向cell数据库添加计算节点</strong> </h5>
+<p> 添加admin环境变量</p>
+<pre><code># . admin-openrc
+
+</code></pre>
+<p>查看计算节点信息是否已经在数据库</p>
+<pre><code># openstack compute service list --service nova-compute
+
++----+--------------+---------+------+---------+-------+----------------------------+
+| ID | Binary       | Host    | Zone | Status  | State | Updated At                 |
++----+--------------+---------+------+---------+-------+----------------------------+
+|  6 | nova-compute | compute | nova | enabled | up    | 2018-04-26T12:00:40.000000 |
++----+--------------+---------+------+---------+-------+----------------------------+
+
+</code></pre>
+<p>发现计算节点</p>
+<pre><code># su -s /bin/sh -c &quot;nova-manage cell_v2 discover_hosts --verbose&quot; nova
+
+Found 2 cell mappings.
+Skipping cell0 since it does not contain hosts.
+Getting computes from cell &#39;cell1&#39;: fc354ac0-a088-4dbb-b106-e795ebeaec32
+Checking host mapping for compute host &#39;compute&#39;: 47b0f376-fa1a-4fe8-9f2e-af1be125781a
+Creating host mapping for compute host &#39;compute&#39;: 47b0f376-fa1a-4fe8-9f2e-af1be125781a
+Found 1 unmapped computes in cell: fc354ac0-a088-4dbb-b106-e795ebeaec32
+
+</code></pre>
+<h5>5.6 <strong>（控制节点）验证操作</strong> </h5>
+<p>添加admin环境变量</p>
+<pre><code># . admin-openrc
+
+</code></pre>
+<p>列出计算服务的运行状态</p>
+<pre><code># openstack compute service list
+
++----+------------------+------------+----------+---------+-------+----------------------------+
+| ID | Binary           | Host       | Zone     | Status  | State | Updated At                 |
++----+------------------+------------+----------+---------+-------+----------------------------+
+|  1 | nova-consoleauth | controller | internal | enabled | up    | 2018-04-26T12:10:00.000000 |
+|  2 | nova-conductor   | controller | internal | enabled | up    | 2018-04-26T12:09:59.000000 |
+|  5 | nova-scheduler   | controller | internal | enabled | up    | 2018-04-26T12:10:00.000000 |
+|  6 | nova-compute     | compute    | nova     | enabled | up    | 2018-04-26T12:10:00.000000 |
++----+------------------+------------+----------+---------+-------+----------------------------+
+
+</code></pre>
+<p>列出认证服务的端口</p>
+<pre><code># openstack catalog list
+
++-----------+-----------+-----------------------------------------+
+| Name      | Type      | Endpoints                               |
++-----------+-----------+-----------------------------------------+
+| nova      | compute   | RegionOne                               |
+|           |           |   admin: http://controller:8774/v2.1    |
+|           |           | RegionOne                               |
+|           |           |   internal: http://controller:8774/v2.1 |
+|           |           | RegionOne                               |
+|           |           |   public: http://controller:8774/v2.1   |
+|           |           |                                         |
+| placement | placement | RegionOne                               |
+|           |           |   admin: http://controller:8778         |
+|           |           | RegionOne                               |
+|           |           |   public: http://controller:8778        |
+|           |           | RegionOne                               |
+|           |           |   internal: http://controller:8778      |
+|           |           |                                         |
+| glance    | image     | RegionOne                               |
+|           |           |   internal: http://controller:9292      |
+|           |           | RegionOne                               |
+|           |           |   admin: http://controller:9292         |
+|           |           | RegionOne                               |
+|           |           |   public: http://controller:9292        |
+|           |           |                                         |
+| keystone  | identity  | RegionOne                               |
+|           |           |   public: http://controller:5000/v3/    |
+|           |           | RegionOne                               |
+|           |           |   admin: http://controller:35357/v3/    |
+|           |           | RegionOne                               |
+|           |           |   internal: http://controller:5000/v3/  |
+|           |           |                                         |
++-----------+-----------+-----------------------------------------+
+
+</code></pre>
+<p>列出镜像信息，确认能访问镜像服务</p>
+<pre><code># openstack image list
+
++--------------------------------------+--------+--------+
+| ID                                   | Name   | Status |
++--------------------------------------+--------+--------+
+| 0466e837-7d0c-4ebd-a2a1-194e80635d98 | cirros | active |
++--------------------------------------+--------+--------+
+
+</code></pre>
+<p>确认cells和placement api成功运行</p>
+<pre><code># nova-status upgrade check
+
++--------------------------+
+| 升级检查结果             |
++--------------------------+
+| 检查: Cells v2           |
+| 结果: 成功               |
+| 详情: None               |
++--------------------------+
+| 检查: Placement API      |
+| 结果: 成功               |
+| 详情: None               |
++--------------------------+
+| 检查: Resource Providers |
+| 结果: 成功               |
+| 详情: None               |
++--------------------------+
+
+</code></pre>
+<h4>六、OpenStack网络服务安装</h4>
+<h5>6.1 <strong>（控制节点）配置数据库</strong> </h5>
+<p>连接数据库</p>
+<pre><code># mysql -u root -pgyyf2018
+
+</code></pre>
+<p>创建数据库并配置权限</p>
+<pre><code>MariaDB [(none)]&gt; CREATE DATABASE neutron;
+
+MariaDB [(none)]&gt; GRANT ALL PRIVILEGES ON neutron.* TO &#39;neutron&#39;@&#39;localhost&#39; \
+  IDENTIFIED BY &#39;gyyf2018&#39;;
+MariaDB [(none)]&gt; GRANT ALL PRIVILEGES ON neutron.* TO &#39;neutron&#39;@&#39;%&#39; \
+  IDENTIFIED BY &#39;gyyf2018&#39;;
+
+</code></pre>
+<h5>6.2 <strong>（控制节点）创建认证信息</strong> </h5>
+<p>设置admin环境变量</p>
+<pre><code># . admin-openrc
+
+</code></pre>
+<p>创建neutron用户</p>
+<pre><code># openstack user create --domain default --password-prompt neutron
+
+User Password:
+Repeat User Password:     创建neutron用户的密码，gyyf2018
++---------------------+----------------------------------+
+| Field               | Value                            |
++---------------------+----------------------------------+
+| domain_id           | default                          |
+| enabled             | True                             |
+| id                  | 7e9b55f8c652478784749ac8fb616a4c |
+| name                | neutron                          |
+| options             | {}                               |
+| password_expires_at | None                             |
++---------------------+----------------------------------+
+
+</code></pre>
+<p>将admin角色添加给neutron用户</p>
+<pre><code># openstack role add --project service --user neutron admin
+
+</code></pre>
+<p>创建neutron服务</p>
+<pre><code># openstack service create --name neutron \
+  --description &quot;OpenStack Networking&quot; network
+
++-------------+----------------------------------+
+| Field       | Value                            |
++-------------+----------------------------------+
+| description | OpenStack Networking             |
+| enabled     | True                             |
+| id          | 43992283bd8d426a8956751c40a0de49 |
+| name        | neutron                          |
+| type        | network                          |
++-------------+----------------------------------+
+
+</code></pre>
+<p>将网络服务端口信息注册到认证服务</p>
+<pre><code># openstack endpoint create --region RegionOne \
+  network public http://controller:9696
+
++--------------+----------------------------------+
+| Field        | Value                            |
++--------------+----------------------------------+
+| enabled      | True                             |
+| id           | c183875c07a54aea810bbdd9e1104827 |
+| interface    | public                           |
+| region       | RegionOne                        |
+| region_id    | RegionOne                        |
+| service_id   | 43992283bd8d426a8956751c40a0de49 |
+| service_name | neutron                          |
+| service_type | network                          |
+| url          | http://controller:9696           |
++--------------+----------------------------------+
+
+# openstack endpoint create --region RegionOne \
+  network internal http://controller:9696
+
++--------------+----------------------------------+
+| Field        | Value                            |
++--------------+----------------------------------+
+| enabled      | True                             |
+| id           | 78b007a132654268a8d822f3f2b64678 |
+| interface    | internal                         |
+| region       | RegionOne                        |
+| region_id    | RegionOne                        |
+| service_id   | 43992283bd8d426a8956751c40a0de49 |
+| service_name | neutron                          |
+| service_type | network                          |
+| url          | http://controller:9696           |
++--------------+----------------------------------+
+
+# openstack endpoint create --region RegionOne \
+  network admin http://controller:9696
+
++--------------+----------------------------------+
+| Field        | Value                            |
++--------------+----------------------------------+
+| enabled      | True                             |
+| id           | 5f152d4b081e448b8e9e76ba002800be |
+| interface    | admin                            |
+| region       | RegionOne                        |
+| region_id    | RegionOne                        |
+| service_id   | 43992283bd8d426a8956751c40a0de49 |
+| service_name | neutron                          |
+| service_type | network                          |
+| url          | http://controller:9696           |
++--------------+----------------------------------+
+
+</code></pre>
+<h5>6.3 <strong>（控制节点）安装软件包并配置配置文件</strong> </h5>
+<p>安装软件包</p>
+<pre><code># yum install openstack-neutron openstack-neutron-ml2 \
+  openstack-neutron-linuxbridge ebtables -y
+
+</code></pre>
+<p>编辑/etc/neutron/neutron.conf文件并配置如下项</p>
+<pre><code># vi /etc/neutron/neutron.conf
+修改：
+#配置数据库访问
+[database]
+connection = mysql+pymysql://neutron:gyyf2018@controller/neutron
+...
+
+#启用ML2插件，路由服务和重叠的IP地址,配置消息队列的连接,
+[DEFAULT]
+core_plugin = ml2
+service_plugins = router
+allow_overlapping_ips = true
+transport_url = rabbit://openstack:gyyf2018@controller
+auth_strategy = keystone
+notify_nova_on_port_status_changes = true
+notify_nova_on_port_data_changes = true
+...
+
+#配置认证服务访问
+[keystone_authtoken]
+auth_uri = http://controller:5000
+auth_url = http://controller:35357
+memcached_servers = controller:11211
+auth_type = password
+project_domain_name = default
+user_domain_name = default
+project_name = service
+username = neutron
+password = gyyf2018
+...
+
+#配置网络服务来通知计算节点的网络拓扑变化
+[nova]
+auth_url = http://controller:35357
+auth_type = password
+project_domain_name = default
+user_domain_name = default
+region_name = RegionOne
+project_name = service
+username = nova
+password = gyyf2018
+...
+
+#配置锁路径
+[oslo_concurrency]
+lock_path = /var/lib/neutron/tmp
+...
+
+</code></pre>
+<p>编辑/etc/neutron/plugins/ml2/ml2_conf.ini文件配置二层插件</p>
+<pre><code># vi /etc/neutron/plugins/ml2/ml2_conf.ini
+修改：
+#启用flat，VLAN以及VXLAN网络,启用VXLAN私有网络,启用Linuxbridge和layer－2机制,启用端口安全扩展驱动
+[ml2]
+type_drivers = flat,vlan,vxlan
+tenant_network_types = vxlan
+mechanism_drivers = linuxbridge,l2population
+extension_drivers = port_security
+...
+
+#配置公共虚拟网络为flat网络,创建flat外部网络时，使用的名称就是这里定义的
+[ml2_type_flat]
+flat_networks = provider
+...
+
+#为私有网络配置VXLAN网络识别的网络范围
+[ml2_type_vxlan]
+vni_ranges = 1:1000
+...
+
+#启用 ipset 增加安全组规则的高效性
+[securitygroup]
+enable_ipset = true
+
+</code></pre>
+<p>编辑/etc/neutron/plugins/ml2/linuxbridge_agent.ini文件配置linux bridge插件</p>
+<pre><code># vi /etc/neutron/plugins/ml2/linuxbridge_agent.ini
+修改：
+#将公共虚拟网络和公共物理网络接口对应起来
+[linux_bridge]
+physical_interface_mappings = provider:eth0   #这个是可以上网的网卡名
+...
+
+#启用VXLAN覆盖网络，配置覆盖网络的物理网络接口的IP地址，启用layer－2 population
+[vxlan]
+enable_vxlan = true
+local_ip = 192.168.168.95
+l2_population = true
+...
+
+#启用安全组并配置 Linuxbridge iptables firewall driver
+[securitygroup]
+enable_security_group = true
+firewall_driver = neutron.agent.linux.iptables_firewall.IptablesFirewallDriver
+...
+
+</code></pre>
+<p>确认内核支持网桥filters并作如下设置，编辑/etc/sysctl.conf增加以下内容</p>
+<pre><code># vi /etc/sysctl.conf
+添加：
+net.bridge.bridge-nf-call-iptables=1
+net.bridge.bridge-nf-call-ip6tables=1
+
+</code></pre>
+<p>载入br_netfilter模块</p>
+<pre><code># modprobe br_netfilter
+
+</code></pre>
+<p>从配置文件加载内核参数</p>
+<pre><code># sysctl -p
+
+</code></pre>
+<p>编辑/etc/neutron/l3_agent.ini配置三层插件</p>
+<pre><code># vi /etc/neutron/l3_agent.ini
+修改：
+#配置Linuxbridge接口驱动和外部网络网桥
+#external_network_bridge选项特意设置成缺省值，这样就可以在一个代理上允许多种外部网络
+[DEFAULT]
+interface_driver = neutron.agent.linux.interface.BridgeInterfaceDriver
+external_network_bridge =
+...
+
+</code></pre>
+<p>编辑/etc/neutron/dhcp_agent.ini配置dhcp插件</p>
+<pre><code># vi /etc/neutron/dhcp_agent.ini
+修改：
+#配置Linuxbridge驱动接口，DHCP驱动并启用隔离元数据
+[DEFAULT]
+interface_driver = neutron.agent.linux.interface.BridgeInterfaceDriver
+dhcp_driver = neutron.agent.linux.dhcp.Dnsmasq
+enable_isolated_metadata = true
+...
+
+</code></pre>
+<p>编辑/etc/neutron/metadata_agent.ini文件配置metadata插件</p>
+<pre><code># vi /etc/neutron/metadata_agent.ini
+修改：
+#配置元数据主机以及共享密码
+[DEFAULT]
+nova_metadata_host = controller
+metadata_proxy_shared_secret = gyyf2018
+...
+
+</code></pre>
+<p>编辑文件/etc/nova/nova.conf配置计算服务使用网络服务</p>
+<pre><code># vi /etc/nova/nova.conf
+修改：
+#配置访问参数，启用元数据代理并设置密码
+[neutron]
+url = http://controller:9696
+auth_url = http://controller:35357
+auth_type = password
+project_domain_name = default
+user_domain_name = default
+region_name = RegionOne
+project_name = service
+username = neutron
+password = gyyf2018
+service_metadata_proxy = true
+metadata_proxy_shared_secret = gyyf2018
+...
+
+</code></pre>
+<h5>6.4 （控制节点）完成安装，导入数据库表，并启动服务</h5>
+<p>创建链接文件</p>
+<pre><code># ln -s /etc/neutron/plugins/ml2/ml2_conf.ini /etc/neutron/plugin.ini
+
+</code></pre>
+<p>导入数据库结构</p>
+<pre><code># su -s /bin/sh -c &quot;neutron-db-manage --config-file /etc/neutron/neutron.conf \
+  --config-file /etc/neutron/plugins/ml2/ml2_conf.ini upgrade head&quot; neutron
+
+</code></pre>
+<p>重启计算服务</p>
+<pre><code># systemctl restart openstack-nova-api.service
+
+</code></pre>
+<p>设置网络服务的开机自启动，并启动网络服务</p>
+<pre><code># systemctl enable neutron-server.service \
+  neutron-linuxbridge-agent.service neutron-dhcp-agent.service \
+  neutron-metadata-agent.service
+# systemctl start neutron-server.service \
+  neutron-linuxbridge-agent.service neutron-dhcp-agent.service \
+  neutron-metadata-agent.service
+
+# systemctl enable neutron-l3-agent.service
+# systemctl start neutron-l3-agent.service
+
+</code></pre>
+<h5>6.5 （计算节点）计算节点安装网络服务</h5>
+<p>安装软件包</p>
+<pre><code># yum install openstack-neutron-linuxbridge ebtables ipset -y
+
+</code></pre>
+<p>编辑/etc/neutron/neutron.conf文件完成如下项</p>
+<pre><code># vi /etc/neutron/neutron.conf
+修改：
+#配置消息队列的连接
+[DEFAULT]
+transport_url = rabbit://openstack:gyyf2018@controller
+auth_strategy = keystone
+...
+
+#配置认证服务访问
+[keystone_authtoken]
+auth_uri = http://controller:5000
+auth_url = http://controller:35357
+memcached_servers = controller:11211
+auth_type = password
+project_domain_name = default
+user_domain_name = default
+project_name = service
+username = neutron
+password = gyyf2018
+...
+
+#配置锁路径
+[oslo_concurrency]
+lock_path = /var/lib/neutron/tmp
+...
+
+</code></pre>
+<p>配置linux bridge插件，编辑/etc/neutron/plugins/ml2/linuxbridge_agent.ini完成如下项</p>
+<pre><code># vi /etc/neutron/plugins/ml2/linuxbridge_agent.ini
+修改：
+#将公共虚拟网络和公共物理网络接口对应起来
+[linux_bridge]
+physical_interface_mappings = provider:eth0  #这个是可以上网的网卡名
+...
+
+#启用VXLAN覆盖网络，配置覆盖网络的物理网络接口的IP地址，启用layer－2 population
+[vxlan]
+enable_vxlan = true
+local_ip = 192.168.168.96
+l2_population = true
+...
+
+#启用安全组并配置 Linuxbridge iptables firewall driver
+[securitygroup]
+enable_security_group = true
+firewall_driver = neutron.agent.linux.iptables_firewall.IptablesFirewallDriver
+...
+
+</code></pre>
+<p>确认内核支持网桥filters并作如下设置，编辑/etc/sysctl.conf增加以下内容</p>
+<pre><code># vi /etc/sysctl.conf
+添加：
+net.bridge.bridge-nf-call-iptables=1
+net.bridge.bridge-nf-call-ip6tables=1
+
+</code></pre>
+<p>载入br_netfilter模块</p>
+<pre><code># modprobe br_netfilter
+
+</code></pre>
+<p>从配置文件加载内核参数</p>
+<pre><code># sysctl -p
+
+</code></pre>
+<p>配置计算服务使用网络服务/etc/nova/nova.conf</p>
+<pre><code># vi /etc/nova/nova.conf
+修改：
+[neutron]
+url = http://controller:9696
+auth_url = http://controller:35357
+auth_type = password
+project_domain_name = default
+user_domain_name = default
+region_name = RegionOne
+project_name = service
+username = neutron
+password = gyyf2018
+...
+
+</code></pre>
+<p>完成安装，设置服务</p>
+<pre><code># systemctl restart openstack-nova-compute.service
+
+# systemctl enable neutron-linuxbridge-agent.service
+# systemctl start neutron-linuxbridge-agent.service
+
+</code></pre>
+<h5>6.6 （控制节点）验证操作</h5>
+<p>设置admin环境变量</p>
+<pre><code># . admin-openrc
+
+</code></pre>
+<p>验证是否成功启动neutron-server</p>
+<pre><code># openstack extension list --network
+
+</code></pre>
+<p>验证网络插件是否成功启动</p>
+<pre><code># openstack network agent list
+
++--------------------------------------+--------------------+------------+-------------------+-------+-------+---------------------------+
+| ID                                   | Agent Type         | Host       | Availability Zone | Alive | State | Binary                    |
++--------------------------------------+--------------------+------------+-------------------+-------+-------+---------------------------+
+| 4859bc89-2ec8-42e3-aa4e-9bd6173aa996 | DHCP agent         | controller | nova              | :-)   | UP    | neutron-dhcp-agent        |
+| 53f36185-cd1a-437f-9b48-151c641a0018 | L3 agent           | controller | nova              | :-)   | UP    | neutron-l3-agent          |
+| 68145ddd-7af4-4617-9dd4-026650a3b962 | Metadata agent     | controller | None              | :-)   | UP    | neutron-metadata-agent    |
+| 8814a062-43e8-41a8-9fb7-0b07e6160dbf | Linux bridge agent | controller | None              | :-)   | UP    | neutron-linuxbridge-agent |
+| fbe37150-a54b-40cb-91e6-30552a3dbcf2 | Linux bridge agent | compute    | None              | :-)   | UP    | neutron-linuxbridge-agent |
++--------------------------------------+--------------------+------------+-------------------+-------+-------+---------------------------+
+
+</code></pre>
+<h4>七、OpenStack界面安装</h4>
+<h5>7.1 （控制节点）安装软件包并配置相关文件</h5>
+<p>安装软件包</p>
+<pre><code># yum install openstack-dashboard -y
+
+</code></pre>
+<p>编辑/etc/openstack-dashboard/local_settings文件完成如下配置</p>
+<pre><code># vi /etc/openstack-dashboard/local_settings
+修改：
+...
+OPENSTACK_HOST = &quot;controller&quot;   #配置界面在控制节点使用
+...
+ALLOWED_HOSTS = [&#39;*&#39;]           #允许所有主机访问
+...
+SESSION_ENGINE = &#39;django.contrib.sessions.backends.cache&#39;   #配置memcached存储服务
+...
+CACHES = {
+  &#39;default&#39;: {
+	&#39;BACKEND&#39;: &#39;django.core.cache.backends.memcached.MemcachedCache&#39;,
+	&#39;LOCATION&#39;: &#39;controller:11211&#39;,
+  },
+}
+...
+OPENSTACK_KEYSTONE_URL = &quot;http://%s:5000/v3&quot; % OPENSTACK_HOST  #启动v3的认证api
+...
+OPENSTACK_KEYSTONE_MULTIDOMAIN_SUPPORT = True  #启用domain支持
+...
+OPENSTACK_API_VERSIONS = {     #配置api版本
+    &quot;identity&quot;: 3,
+    &quot;image&quot;: 2,
+    &quot;volume&quot;: 2,
+}
+...
+OPENSTACK_KEYSTONE_DEFAULT_DOMAIN = &#39;Default&#39;  #配置default为默认域
+...
+OPENSTACK_KEYSTONE_DEFAULT_ROLE = &quot;user&quot;       #配置user角色为默认角色
+...
+TIME_ZONE = &quot;Asia/Shanghai&quot;   #设置时区
+
+</code></pre>
+<p>重启httpd和memcached服务</p>
+<pre><code># systemctl restart httpd.service memcached.service
+
+</code></pre>
+<h5>7.2 验证操作</h5>
+<pre><code>在浏览器输入http://192.168.168.95/dashboard
+Domain：default
+用户名和密码：
+admin gyyf2018
+demo  gyyf2018
+</code></pre>
+<p><img src='file://C:/Users/liufei/AppData/Roaming/Typora/typora-user-images/1540870745559.png' alt='1540870745559' referrerPolicy='no-referrer' /></p>
+<p><img src='file://C:/Users/liufei/AppData/Roaming/Typora/typora-user-images/1540870769418.png' alt='1540870769418' referrerPolicy='no-referrer' /></p>
+<p>&nbsp;</p>
+<h4>八、常见错误</h4>
+<h5>8.1 打开浏览器500错误</h5>
+<pre><code># vi /etc/httpd/conf.d/openstack-dashboard.conf 
+添加：
+WSGIApplicationGroup %{GLOBAL} 
+
+</code></pre>
+<h5>8.2 Missing value auth-url required for auth plugin password</h5>
+<pre><code>在admin-openrc文件的地方执行
+# source admin-openrc
+</code></pre>
+<div class="tags"><a href="/tags/Hexo/">Hexo</a></div><div class="post-nav"><a href="/2017/09/08/Tomcat配置/" class="next">Tomcat配置</a></div><div id="container"></div><link rel="stylesheet" href="/css/default.css?v=0.0.1"><script src="/js/gitment.browser.js?v=0.0.1"></script><script>var gitment = new Gitment({
+  owner: 'lstop',
+  repo: 'lstop.gitment.io',
+  oauth: {
+    client_id: 'ca5924c73c818fdf8b27',
+    client_secret: '63dc56831bbaff95285264a6579d2d294846dd6f',
+  },
+})
+gitment.render('container')
+</script></div></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/leetcode/">leetcode</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/配置/">配置</a><span class="category-list-count">2</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/Operator/" style="font-size: 15px;">Operator</a> <a href="/tags/binary-tree/" style="font-size: 15px;">binary tree</a> <a href="/tags/tomcat/" style="font-size: 15px;">tomcat</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/09/21/搭建个人博客/">搭建个人博客</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/08/Tomcat配置/">Tomcat配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/30/Traverse the binary tree/">Traverse the binary tree</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/543.Diameter of Binary Tree/">543.Diameter of Binary Tree</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/03/371.Sum of Two Integers/">371.Sum of Two Integers</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://leetcode.com/" title="leetcode" target="_blank">leetcode</a><ul></ul><a href="https://github.com/" title="github" target="_blank">github</a><ul></ul><a href="http://blog.csdn.net/" title="csdn" target="_blank">csdn</a><ul></ul><a href="https://segmentfault.com/blog/" title="segmentfault" target="_blank">segmentfault</a><ul></ul><a href="http://www.jianshu.com/" title="简书" target="_blank">简书</a><ul></ul><a href="http://weibo.com/" title="微博" target="_blank">微博</a><ul></ul><a href="https://zuiyou.ixiaochuan.cn/home" title="最右" target="_blank">最右</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2017 <a href="/." rel="nofollow">lstop.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.1" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.1.20/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.1" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.1.20/jquery.fancybox.min.css"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?true## Your Baidu Analytics tracking id, e.g. 8006843039519956000";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+  })();
+ </script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.1"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.1"></script></div></body></html>
